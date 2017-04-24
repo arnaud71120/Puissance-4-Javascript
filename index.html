@@ -95,8 +95,9 @@ function testVainqueur(){
   // test victoire sur ligne horizontal
   for (var i = 5 ; i >= 0 ; i--){
   for(var y = 6 ; y >= 0 ; y--){
+    console.log(tabJoueur[y][i]);
+    console.log('lastjoueur : ' + lastJoueur);
     if(tabJoueur[y][i] != false){
-      console.log(comptLigne );
       if(lastJoueur == tabJoueur[y][i] ){
         comptLigne++;
       }else{
@@ -107,7 +108,6 @@ function testVainqueur(){
         alert('Joueur ' + tabJoueur[y][i] + ' vainqueur' );
       }
     }
-lastJoueur = false;
     }
   }
 
