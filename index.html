@@ -1,7 +1,21 @@
 <div id="tableau" style="LEFT: 100px; WIDTH: 350px; POSITION: absolute; TOP: 100px; HEIGHT: 300px">
 </div>
 <script>
-
+var jeton, joueur;
+function initJoueur(){
+  jeton = "jetonjaune.gif";
+  joueur = 1;
+}
+initJoueur();
+function swapJoueur(){
+  if(joueur == 1){
+    joueur = 2;
+    jeton = "jetonrouge.gif";
+  }else{
+    joueur = 1;
+    jeton = "jetonjaune.gif";
+  }
+}
 function tableauInit(){
 var tab = new Array();
   for(var i = 0 ; i < 7 ; i++){
@@ -13,6 +27,21 @@ var tab = new Array();
   return tab;
 }
 var tab = tableauInit();
+
+
+function choixJoueurInit(){
+var tabJoueur = new Array();
+  for(var i = 0 ; i < 7 ; i++){
+    tabJoueur[i] = new Array();
+      for (var y = 0 ; y < 6 ; y++){
+        tabJoueur[i].push(false)
+          }
+  }
+  return tabJoueur;
+}
+var tabJoueur = choixJoueurInit();
+
+
 
 function initGrille(){
   var tr1 = new Array();
@@ -42,11 +71,48 @@ function addJetons(value){
   for(var i = 5 ; i >= 0 ; i--){
     if (tab[value][i] == false){
       tab[value][i] = true;
+      tabJoueur[value][i] = joueur;
+      console.log(tabJoueur);
       var Ligne = 'Ligne' + i;
       var Parent = document.getElementById(Ligne);
-      Parent.childNodes[value].innerHTML = '<img style="position: absolute; z-index: 1;" src="images/jetonjaune.gif"><img src="images/case.gif"> ';
+
+      Parent.childNodes[value].innerHTML = '<img style="position: absolute; z-index: 1;" src="images/'+jeton+'"><img src="images/case.gif"> ';
+
+      testVainqueur();
+      swapJoueur();
+      break;
+    }
+    if(i == 0 && tab[value][i] == true ){
+      alert('Colonne pleine ! \n Veuillez choissir une autre colonne');
       break;
     }
       }
 }
+
+function testVainqueur(){
+  var lastJoueur;
+  var comptLigne=0;
+  // test victoire sur ligne horizontal
+  for (var i = 5 ; i >= 0 ; i--){
+  for(var y = 6 ; y >= 0 ; y--){
+    if(tabJoueur[y][i] != false){
+      console.log(comptLigne );
+      if(lastJoueur == tabJoueur[y][i] ){
+        comptLigne++;
+      }else{
+        comptLigne = 1;
+      }
+      lastJoueur = tabJoueur[y][i];
+      if(comptLigne == 4){
+        alert('Joueur ' + tabJoueur[y][i] + ' vainqueur' );
+      }
+    }
+lastJoueur = false;
+    }
+  }
+
+}
+
+
+
 </script>
