@@ -1,0 +1,52 @@
+<div id="tableau" style="LEFT: 100px; WIDTH: 350px; POSITION: absolute; TOP: 100px; HEIGHT: 300px">
+</div>
+<script>
+
+function tableauInit(){
+var tab = new Array();
+  for(var i = 0 ; i < 7 ; i++){
+    tab[i] = new Array();
+      for (var y = 0 ; y < 6 ; y++){
+        tab[i].push(false)
+          }
+  }
+  return tab;
+}
+var tab = tableauInit();
+
+function initGrille(){
+  var tr1 = new Array();
+
+    for(var i = 0 ; i < 6 ; i++){
+      if (i == 0){
+        tr = '<table cellspacing="0" cellpadding="0" width="350"><tbody><tr id="Ligne'+i+'">';
+      }else{
+       tr = '<tr id="Ligne'+i+'">';
+     }
+        for (var y = 0 ; y < 7 ; y++){
+          tr += '<td id="Colonne'+y+'" onclick="addJetons('+y+');"><img src="images/case.gif"> </td>';
+            }
+            if(i == 6){
+            tr += '</tr></tbody></table>';
+          }
+          else {
+          tr +='</tr>';
+          }
+            tr1.push(tr);
+    }
+    document.getElementById("tableau").innerHTML = tr1;
+}
+initGrille();
+
+function addJetons(value){
+  for(var i = 5 ; i >= 0 ; i--){
+    if (tab[value][i] == false){
+      tab[value][i] = true;
+      var Ligne = 'Ligne' + i;
+      var Parent = document.getElementById(Ligne);
+      Parent.childNodes[value].innerHTML = '<img style="position: absolute; z-index: 1;" src="images/jetonjaune.gif"><img src="images/case.gif"> ';
+      break;
+    }
+      }
+}
+</script>
