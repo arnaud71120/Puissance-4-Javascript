@@ -70,10 +70,11 @@ function initJoueur(){
   joueur = 1;
 }
 
-function swapJoueur(){
+function changeJoueur(){
   if(joueur == 1){
     joueur = 2;
     jeton = "jetonrouge.gif";
+    iaOrdi();
   }else{
     joueur = 1;
     jeton = "jetonjaune.gif";
@@ -126,7 +127,53 @@ function initGrille(){
     }
     document.getElementById("tableau").innerHTML = tr1;
 }
+function iaOrdi(){
+  var jouer=0;
+    for (var i = 5 ; i >= 0 ; i--){
+      if(jouer == 0){
+      for(var y = 6 ; y >= 0 ; y--){
+        console.log('y : ' + y);
+        if(tabJoueur[y][i] == false){ // si la case est vide
+          if(y != 6){ // si on ne se situe pas sur la premiere case
+            var myI = i; // on enleve 1 pour checker si la case précédente nous appartient
+            var myY = y+1;
+            if(tabJoueur[myY][myI] == 2){ // si la case nous appartient
 
+              var newMyY = y+1;
+              var compt = 0;
+              for(var b=0; b >2; b++){ // on boucle pour regarder si les 2 prochaines case sont vide
+                if(tabJoueur[newMyY][i] == false){
+                  compt++;
+                }
+              }
+              if(compt == 2){ // les deux prochaines cases sont vide, donc on peut insérer le jeton
+                addJetons(y);
+                break;
+              }
+            }else{ // si la case ne nous appart pas
+              var newMyY = y+1;
+              var compt = 0;
+              for(var b= newMyY; b > newMyY-3; b--){
+                  console.log(b);
+                if(tabJoueur[b][i] == false){
+                  compt++;
+                }
+              }
+              if(compt == 3){ // les trois prochaines cases sont vide, donc on peut insérer le jeton
+                addJetons(newMyY);
+                jouer = 1;
+                break;
+              }
+            }
+          }
+
+        }
+      }
+    }else{
+      break;
+    }
+    }
+}
 function addJetons(value){
   if(victoire == 0){
   for(var i = 5 ; i >= 0 ; i--){
@@ -139,7 +186,7 @@ function addJetons(value){
       Parent.childNodes[value].innerHTML = '<img style="position: absolute; z-index: 1;" src="images/'+jeton+'"><img src="images/case.gif"> ';
 
       testVainqueur();
-      swapJoueur();
+      changeJoueur();
       break;
     }
     if(i == 0 && tab[value][i] == true ){
