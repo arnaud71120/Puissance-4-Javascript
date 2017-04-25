@@ -183,6 +183,8 @@ function testVainqueur(){
           nbVictoire2++;
         }
       }
+    }else{
+      comptLigne =0;
     }
     }
   }
@@ -206,8 +208,8 @@ function testVainqueur(){
       lastJoueurVertical = tabJoueur[i][y];
       if(comptColonne == 4){
         victoire = 1;
-        document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
-        if(tabJoueur[y][i] == 1){
+        document.getElementById('victoire').innerHTML = "Victoire du Joueur " +  tabJoueur[i][y] ;
+        if(tabJoueur[i][y] == 1){
           nbVictoire1++;
         }else{
           nbVictoire2++;
