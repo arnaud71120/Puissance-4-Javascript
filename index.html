@@ -94,18 +94,47 @@ function testVainqueur(){
   var comptLigne=0;
   // test victoire sur ligne horizontal
   for (var i = 5 ; i >= 0 ; i--){
+    var lastJoueur;
+    var comptLigne=0;
   for(var y = 6 ; y >= 0 ; y--){
-    console.log(tabJoueur[y][i]);
-    console.log('lastjoueur : ' + lastJoueur);
     if(tabJoueur[y][i] != false){
       if(lastJoueur == tabJoueur[y][i] ){
-        comptLigne++;
+        if(comptLigne >= 0 && comptLigne <= 4){
+        comptLigne++;}
+        else{
+          comptLigne =1
+        }
       }else{
         comptLigne = 1;
       }
       lastJoueur = tabJoueur[y][i];
       if(comptLigne == 4){
         alert('Joueur ' + tabJoueur[y][i] + ' vainqueur' );
+      }
+    }
+    }
+  }
+
+  // test victoire sur ligne vertical
+  for (var i = 6 ; i >= 0 ; i--){
+
+    var lastJoueurVertical;
+    var comptColonne=0;
+  for(var y = 5 ; y >= 0 ; y--){
+    console.log(tabJoueur[i][y]);
+    if(tabJoueur[i][y] != false){
+      if(lastJoueurVertical == tabJoueur[i][y] ){
+        if(comptColonne >= 0 && comptColonne <= 4){
+        comptColonne++;}
+        else{
+          comptColonne =1
+        }
+      }else{
+        comptColonne = 1;
+      }
+      lastJoueurVertical = tabJoueur[i][y];
+      if(comptColonne == 4){
+        alert('Joueur ' + tabJoueur[i][y] + ' vainqueur' );
       }
     }
     }
