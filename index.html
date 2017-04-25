@@ -13,18 +13,27 @@ body {
 </head>
 <body style="background-image: url('images/background.jpg')">
 <center>
+  <div id="menu">
   <h1 style="color:blue;">Jeu du Puissance 4</h1>
-  <button type="button" onclick="startGame()">Démarrer la partie</button>
+  <button id="buttonStart" type="button" onclick="startGame()">Démarrer la partie</button>
   <h2 style="color:red;" id="victoire"></h2>
-</center>
-<div id="tableau" style="left: 40%; width: 350px; position: absolute; top: 20%; height: 300px">
 </div>
+</center>
+<div id="tableau" style="left: 40%; width: 350px; position: absolute; top: 20%; height: 600px ">
+</div>
+<center>
+
+
 </body>
 </html>
 <script>
+var nbVictoire1 =0;
+var nbVictoire2 =0;
 var tab, tabJoueur, victoire;
 function startGame(){
-  document.getElementById('victoire').innerHTML = "";
+var btn =  document.getElementById('buttonStart');
+btn.parentNode.removeChild(btn);
+
   var jeton, joueur;
   victoire = 0
   initJoueur();
@@ -32,6 +41,25 @@ function startGame(){
    tabJoueur = choixJoueurInit();
 
   initGrille();
+  var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">Joueur 1 : '+nbVictoire1+'</p><p style="color:blue;">Joueur 2 : '+nbVictoire2+'</p></div>';
+
+}
+
+function restartGame(){
+var btn =  document.getElementById('restartGame');
+  btn.parentNode.removeChild(btn);
+  var removeScore =  document.getElementById('score');
+    removeScore.parentNode.removeChild(removeScore);
+    document.getElementById('victoire').innerHTML = "";
+    var jeton, joueur;
+    victoire = 0
+    initJoueur();
+     tab = tableauInit();
+     tabJoueur = choixJoueurInit();
+
+    initGrille();
+    var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">Joueur 1 : '+nbVictoire1+'</p><p style="color:blue;">Joueur 2 : '+nbVictoire2+'</p></div>';
+
 }
 var jeton, joueur;
 function initJoueur(){
@@ -117,6 +145,10 @@ function addJetons(value){
     }
       }
     }
+    if(victoire == 1){
+      var Menu = document.getElementById('menu');
+      Menu.innerHTML += '<button id="restartGame" type="button" onclick="restartGame()"> Recommencer une partie </button>';
+    }
 }
 
 function testVainqueur(){
@@ -141,6 +173,11 @@ function testVainqueur(){
       if(comptLigne == 4){
         victoire = 1;
         document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
+        if(tabJoueur[y][i] == 1){
+          nbVictoire1++;
+        }else{
+          nbVictoire2++;
+        }
       }
     }
     }
@@ -166,6 +203,11 @@ function testVainqueur(){
       if(comptColonne == 4){
         victoire = 1;
         document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
+        if(tabJoueur[y][i] == 1){
+          nbVictoire1++;
+        }else{
+          nbVictoire2++;
+        }
       }
     }
     }
@@ -204,6 +246,11 @@ function testVainqueur(){
       if(comptColonneDiagGauche == 4){
         victoire = 1;
         document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
+        if(tabJoueur[y][i] == 1){
+          nbVictoire1++;
+        }else{
+          nbVictoire2++;
+        }
       }
       varI--;
       varY--;
@@ -249,6 +296,11 @@ function testVainqueur(){
       if(comptColonneDiagDroite == 4){
         victoire = 1;
         document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
+        if(tabJoueur[y][i] == 1){
+          nbVictoire1++;
+        }else{
+          nbVictoire2++;
+        }
       }
       varI--;
       varY++;
