@@ -12,17 +12,33 @@ body {
 </title>
 </head>
 <body style="background-image: url('images/background.jpg')">
+<center>
+  <h1 style="color:blue;">Jeu du Puissance 4</h1>
+  <button type="button" onclick="startGame()">Démarrer la partie</button>
+  <h2 style="color:red;" id="victoire"></h2>
+</center>
 <div id="tableau" style="left: 40%; width: 350px; position: absolute; top: 20%; height: 300px">
 </div>
 </body>
 </html>
 <script>
+var tab, tabJoueur, victoire;
+function startGame(){
+  document.getElementById('victoire').innerHTML = "";
+  var jeton, joueur;
+  victoire = 0
+  initJoueur();
+   tab = tableauInit();
+   tabJoueur = choixJoueurInit();
+
+  initGrille();
+}
 var jeton, joueur;
 function initJoueur(){
   jeton = "jetonjaune.gif";
   joueur = 1;
 }
-initJoueur();
+
 function swapJoueur(){
   if(joueur == 1){
     joueur = 2;
@@ -42,7 +58,6 @@ var tab = new Array();
   }
   return tab;
 }
-var tab = tableauInit();
 
 
 function choixJoueurInit(){
@@ -55,7 +70,6 @@ var tabJoueur = new Array();
   }
   return tabJoueur;
 }
-var tabJoueur = choixJoueurInit();
 
 
 
@@ -81,14 +95,13 @@ function initGrille(){
     }
     document.getElementById("tableau").innerHTML = tr1;
 }
-initGrille();
 
 function addJetons(value){
+  if(victoire == 0){
   for(var i = 5 ; i >= 0 ; i--){
     if (tab[value][i] == false){
       tab[value][i] = true;
       tabJoueur[value][i] = joueur;
-      console.log(tabJoueur);
       var Ligne = 'Ligne' + i;
       var Parent = document.getElementById(Ligne);
 
@@ -103,6 +116,7 @@ function addJetons(value){
       break;
     }
       }
+    }
 }
 
 function testVainqueur(){
@@ -125,7 +139,8 @@ function testVainqueur(){
       }
       lastJoueur = tabJoueur[y][i];
       if(comptLigne == 4){
-        alert('Joueur ' + tabJoueur[y][i] + ' vainqueur' );
+        victoire = 1;
+        document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
       }
     }
     }
@@ -137,7 +152,6 @@ function testVainqueur(){
     var lastJoueurVertical;
     var comptColonne=0;
   for(var y = 5 ; y >= 0 ; y--){
-    console.log(tabJoueur[i][y]);
     if(tabJoueur[i][y] != false){
       if(lastJoueurVertical == tabJoueur[i][y] ){
         if(comptColonne >= 0 && comptColonne <= 4){
@@ -150,7 +164,8 @@ function testVainqueur(){
       }
       lastJoueurVertical = tabJoueur[i][y];
       if(comptColonne == 4){
-        alert('Joueur ' + tabJoueur[i][y] + ' vainqueur' );
+        victoire = 1;
+        document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
       }
     }
     }
@@ -187,7 +202,8 @@ function testVainqueur(){
 
       lastJoueurDiagGauche = tabJoueur[varY][varI];
       if(comptColonneDiagGauche == 4){
-        alert('Joueur ' + tabJoueur[y][i] + ' vainqueur' );
+        victoire = 1;
+        document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
       }
       varI--;
       varY--;
@@ -231,7 +247,8 @@ function testVainqueur(){
 
       lastJoueurDiagDroite = tabJoueur[varY][varI];
       if(comptColonneDiagDroite == 4){
-        alert('Joueur ' + tabJoueur[y][i] + ' vainqueur' );
+        victoire = 1;
+        document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
       }
       varI--;
       varY++;
