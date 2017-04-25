@@ -140,6 +140,94 @@ function testVainqueur(){
     }
   }
 
+
+  // test victoire sur ligne diagonale gauche
+  for (var i = 5 ; i >= 0 ; i--){
+
+    var lastJoueurDiagGauche;
+    var comptColonneDiagGauche=0;
+  for(var y = 6 ; y >= 0 ; y--){
+
+    if(tabJoueur[y][i] != false){
+      var varI= i;
+      var varY = y;
+      if( y >= 3 && i >=3 ){
+        for (var g= 0; g < 4; g++){
+
+      if(lastJoueurDiagGauche == tabJoueur[varY][varI] ){
+
+        if(comptColonneDiagGauche >= 0 && comptColonneDiagGauche <= 4){
+        comptColonneDiagGauche++;}
+        else{
+          comptColonneDiagGauche =1
+      }
+      }
+
+
+      else{
+        comptColonneDiagGauche = 1;
+      }
+
+
+      lastJoueurDiagGauche = tabJoueur[varY][varI];
+      if(comptColonneDiagGauche == 4){
+        alert('Joueur ' + tabJoueur[y][i] + ' vainqueur' );
+      }
+      varI--;
+      varY--;
+    }
+  }
+}
+
+
+    }
+  }
+
+
+
+  // test victoire sur ligne diagonale droite
+  for (var i = 5 ; i >= 0 ; i--){
+
+    var lastJoueurDiagGauche;
+    var comptColonneDiagGauche=0;
+  for(var y = 6 ; y >= 0 ; y--){
+
+    if(tabJoueur[y][i] != false){
+      var varI= i;
+      var varY = y;
+      if( y >= 3 && i >=3 ){
+        for (var g= 0; g < 4; g++){
+
+      if(lastJoueurDiagGauche == tabJoueur[varY][varI] ){
+
+        if(comptColonneDiagGauche >= 0 && comptColonneDiagGauche <= 4){
+        comptColonneDiagGauche++;}
+        else{
+          comptColonneDiagGauche =1
+      }
+      }
+
+
+      else{
+        comptColonneDiagGauche = 1;
+      }
+
+
+      lastJoueurDiagGauche = tabJoueur[varY][varI];
+      if(comptColonneDiagGauche == 4){
+        alert('Joueur ' + tabJoueur[y][i] + ' vainqueur' );
+      }
+      varI--;
+      varY--;
+    }
+  }
+}
+
+
+    }
+  }
+
+
 }
 
 
