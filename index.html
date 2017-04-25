@@ -188,37 +188,37 @@ function testVainqueur(){
   // test victoire sur ligne diagonale droite
   for (var i = 5 ; i >= 0 ; i--){
 
-    var lastJoueurDiagGauche;
-    var comptColonneDiagGauche=0;
+    var lastJoueurDiagDroite;
+    var comptColonneDiagDroite=0;
   for(var y = 6 ; y >= 0 ; y--){
 
     if(tabJoueur[y][i] != false){
       var varI= i;
       var varY = y;
-      if( y >= 3 && i >=3 ){
+      if( y <= 3 && i >=3 ){
         for (var g= 0; g < 4; g++){
 
-      if(lastJoueurDiagGauche == tabJoueur[varY][varI] ){
+      if(lastJoueurDiagDroite == tabJoueur[varY][varI] ){
 
-        if(comptColonneDiagGauche >= 0 && comptColonneDiagGauche <= 4){
-        comptColonneDiagGauche++;}
+        if(comptColonneDiagDroite >= 0 && comptColonneDiagDroite <= 4){
+        comptColonneDiagDroite++;}
         else{
-          comptColonneDiagGauche =1
+          comptColonneDiagDroite =1
       }
       }
 
 
       else{
-        comptColonneDiagGauche = 1;
+        comptColonneDiagDroite = 1;
       }
 
 
-      lastJoueurDiagGauche = tabJoueur[varY][varI];
-      if(comptColonneDiagGauche == 4){
+      lastJoueurDiagDroite = tabJoueur[varY][varI];
+      if(comptColonneDiagDroite == 4){
         alert('Joueur ' + tabJoueur[y][i] + ' vainqueur' );
       }
       varI--;
-      varY--;
+      varY++;
     }
   }
 }
