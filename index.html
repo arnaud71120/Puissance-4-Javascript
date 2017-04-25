@@ -155,9 +155,10 @@ function iaOrdi(){
               var compt = 0;
               for(var b= newMyY; b > newMyY-3; b--){
                   console.log(b);
+                  if( b>=0){
                 if(tabJoueur[b][i] == false){
                   compt++;
-                }
+                }}
               }
               if(compt == 3){ // les trois prochaines cases sont vide, donc on peut insérer le jeton
                 addJetons(newMyY);
