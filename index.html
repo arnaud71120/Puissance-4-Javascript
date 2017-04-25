@@ -27,10 +27,12 @@ body {
 </body>
 </html>
 <script>
+var noBtn;
 var nbVictoire1 =0;
 var nbVictoire2 =0;
 var tab, tabJoueur, victoire;
 function startGame(){
+ noBtn = 0;
 var btn =  document.getElementById('buttonStart');
 btn.parentNode.removeChild(btn);
 
@@ -46,7 +48,8 @@ btn.parentNode.removeChild(btn);
 }
 
 function restartGame(){
-var btn =  document.getElementById('restartGame');
+   noBtn = 0;
+  var btn =  document.getElementById('restartGame');
   btn.parentNode.removeChild(btn);
   var removeScore =  document.getElementById('score');
     removeScore.parentNode.removeChild(removeScore);
@@ -145,7 +148,8 @@ function addJetons(value){
     }
       }
     }
-    if(victoire == 1){
+    if(victoire == 1 && noBtn == 0){
+      noBtn = 1;
       var Menu = document.getElementById('menu');
       Menu.innerHTML += '<button id="restartGame" type="button" onclick="restartGame()"> Recommencer une partie </button>';
     }
