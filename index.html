@@ -279,7 +279,7 @@ function iaOrdi(){ // fonction d'intelligence artificiel du jeux
   }
 
 function addJetons(value){ // fonction permettant d'ajouter un jeton
-  if(victoire == 0 || nul == 0){ // on verifie que la game n'as pas déja été gagner ou que la partie est nul
+  if(victoire == 0 && nul == 0){ // on verifie que la game n'as pas déja été gagner ou que la partie est nul
     for(var i = 5 ; i >= 0 ; i--){ // on boucle sur la colonne, ce qui nous permettera de savoir si il y a deja des jetons dans la colonne
       if (tab[value][i] == false){ // on recupere la premiere case de la colonne qui est vide
         tab[value][i] = true; // on attribue la valeur true a cet colonne dans le tableau
@@ -331,6 +331,7 @@ function testVainqueur(){ // fonction qui permettera de tester si il y a victoir
               victoire = 1;// on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
               document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;// on affiche a l'ecan le nom du vainqueur
               if(tabJoueur[y][i] == 1){// si le vainqueur est  le joueur 1
+                console.log("test");
                 nbVictoire1++; // on lui increment la victoire
               }
               else{//sinon
