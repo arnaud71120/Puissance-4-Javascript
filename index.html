@@ -15,7 +15,8 @@ body {
 <center>
   <div id="menu">
   <h1 style="color:blue;">Jeu du Puissance 4</h1>
-  <button id="buttonStart" type="button" onclick="startGame()">Démarrer la partie</button>
+  <button id="buttonStart1" type="button" onclick="vsJoueur()">Démarrer la partie Joueur VS Joueur</button>
+  <button id="buttonStart2" type="button" onclick="vsIa()">Démarrer la partie Joueur VS IA</button>
   <h2 style="color:red;" id="victoire"></h2>
 </div>
 </center>
@@ -31,10 +32,21 @@ var noBtn;
 var nbVictoire1 =0;
 var nbVictoire2 =0;
 var tab, tabJoueur, victoire;
+var iA;
+function vsJoueur(){
+  iA = false;
+  startGame();
+}
+function vsIa(){
+  iA = true;
+  startGame();
+}
 function startGame(){
  noBtn = 0;
-var btn =  document.getElementById('buttonStart');
+var btn =  document.getElementById('buttonStart1');
 btn.parentNode.removeChild(btn);
+var btn2 =  document.getElementById('buttonStart2');
+btn2.parentNode.removeChild(btn2);
 
   var jeton, joueur;
   victoire = 0
@@ -74,6 +86,16 @@ function changeJoueur(){
   if(joueur == 1){
     joueur = 2;
     jeton = "jetonrouge.gif";
+  }else{
+    joueur = 1;
+    jeton = "jetonjaune.gif";
+  }
+}
+function changeJoueurIa(){
+  if(joueur == 1){
+    joueur = 2;
+    jeton = "jetonrouge.gif";
+    iaOrdi();
   }else{
     joueur = 1;
     jeton = "jetonjaune.gif";
@@ -243,7 +265,12 @@ function addJetons(value){
       Parent.childNodes[value].innerHTML = '<img style="position: absolute; z-index: 1;" src="images/'+jeton+'"><img src="images/case.gif"> ';
 
       testVainqueur();
+      if(iA== true){
+      changeJoueurIa();
+    }
+    else{
       changeJoueur();
+    }
       break;
     }
     if(i == 0 && tab[value][i] == true ){
@@ -279,7 +306,6 @@ function testVainqueur(){
       }
       lastJoueur = tabJoueur[y][i];
       if(comptLigne == 4){
-        console.log("test victoire 1");
         victoire = 1;
         document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
         if(tabJoueur[y][i] == 1){
@@ -312,8 +338,6 @@ function testVainqueur(){
       }
       lastJoueurVertical = tabJoueur[i][y];
       if(comptColonne == 4){
-
-          console.log("test victoire 2");
         victoire = 1;
         document.getElementById('victoire').innerHTML = "Victoire du Joueur " +  tabJoueur[i][y] ;
         if(tabJoueur[i][y] == 1){
@@ -358,8 +382,6 @@ function testVainqueur(){
 
       lastJoueurDiagGauche = tabJoueur[varY][varI];
       if(comptColonneDiagGauche == 4){
-
-          console.log("test victoire 3");
         victoire = 1;
         document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
         if(tabJoueur[y][i] == 1){
