@@ -74,7 +74,6 @@ function changeJoueur(){
   if(joueur == 1){
     joueur = 2;
     jeton = "jetonrouge.gif";
-    iaOrdi();
   }else{
     joueur = 1;
     jeton = "jetonjaune.gif";
@@ -147,12 +146,16 @@ function iaOrdi(){
            }
            for(var p=3; p >0; p--){
              var myY = y-p;
+             if(myY >=0){
              if(tabJoueur[myY][i]== 1){
                comptVertical2++;
              }
+           }
+           if(myY >=0){
              if(tabJoueur[myY][i]== false){
                comptFalse = myY;
              }
+           }
            }
            if(comptVertical == 2 && myY2 >=0 &&  tabJoueur[myY2][i]== false){
 
@@ -160,7 +163,6 @@ function iaOrdi(){
              jouer=1;
              break;
            }
-           console.log(comptVertical2);
            if(comptVertical2 == 2 && comptFalse !=0 ){
 
              addJetons(comptFalse);
@@ -277,6 +279,7 @@ function testVainqueur(){
       }
       lastJoueur = tabJoueur[y][i];
       if(comptLigne == 4){
+        console.log("test victoire 1");
         victoire = 1;
         document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
         if(tabJoueur[y][i] == 1){
@@ -309,6 +312,8 @@ function testVainqueur(){
       }
       lastJoueurVertical = tabJoueur[i][y];
       if(comptColonne == 4){
+
+          console.log("test victoire 2");
         victoire = 1;
         document.getElementById('victoire').innerHTML = "Victoire du Joueur " +  tabJoueur[i][y] ;
         if(tabJoueur[i][y] == 1){
@@ -333,6 +338,7 @@ function testVainqueur(){
       var varI= i;
       var varY = y;
       if( y >= 3 && i >=3 ){
+        lastJoueurDiagGauche="";
         for (var g= 0; g < 4; g++){
 
       if(lastJoueurDiagGauche == tabJoueur[varY][varI] ){
@@ -352,6 +358,8 @@ function testVainqueur(){
 
       lastJoueurDiagGauche = tabJoueur[varY][varI];
       if(comptColonneDiagGauche == 4){
+
+          console.log("test victoire 3");
         victoire = 1;
         document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
         if(tabJoueur[y][i] == 1){
@@ -383,6 +391,7 @@ function testVainqueur(){
       var varI= i;
       var varY = y;
       if( y <= 3 && i >=3 ){
+        lastJoueurDiagDroite="";
         for (var g= 0; g < 4; g++){
 
       if(lastJoueurDiagDroite == tabJoueur[varY][varI] ){
@@ -390,7 +399,7 @@ function testVainqueur(){
         if(comptColonneDiagDroite >= 0 && comptColonneDiagDroite <= 4){
         comptColonneDiagDroite++;}
         else{
-          comptColonneDiagDroite =1
+          comptColonneDiagDroite =1;
       }
       }
 
@@ -398,8 +407,6 @@ function testVainqueur(){
       else{
         comptColonneDiagDroite = 1;
       }
-
-
       lastJoueurDiagDroite = tabJoueur[varY][varI];
       if(comptColonneDiagDroite == 4){
         victoire = 1;
