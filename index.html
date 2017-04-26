@@ -307,186 +307,166 @@ function addJetons(value){ // fonction permettant d'ajouter un jeton
       var Menu = document.getElementById('menu'); // on recupere le contennu de la div menu
       Menu.innerHTML += '<button id="restartGame" type="button" onclick="restartGame()"> Recommencer une partie </button>';// on lui ajoute le bouton de restart
     }
-
 }
 
-function testVainqueur(){
-  var lastJoueur;
-  var comptLigne=0;
-  // test victoire sur ligne horizontal
-  for (var i = 5 ; i >= 0 ; i--){
-    var lastJoueur;
-    var comptLigne=0;
-  for(var y = 6 ; y >= 0 ; y--){
-    if(tabJoueur[y][i] != false){
-      if(lastJoueur == tabJoueur[y][i] ){
-        if(comptLigne >= 0 && comptLigne <= 4){
-        comptLigne++;}
-        else{
-          comptLigne =1
+function testVainqueur(){ // fonction qui permettera de tester si il y a victoire ou non
+  for (var i = 5 ; i >= 0 ; i--){// test victoire sur ligne horizontal
+    var lastJoueur; // variable qui servira de stockage du joueur a la case précédente
+    var comptLigne=0;// compteur de ligne
+      for(var y = 6 ; y >= 0 ; y--){// on va boucler sur l'horizontal
+          if(tabJoueur[y][i] != false){ // si on tombe sur une case non vide
+            if(lastJoueur == tabJoueur[y][i] ){// si le joueur actuel est le meme que précedement
+              if(comptLigne >= 0 && comptLigne <= 4){// si le compteur de ligne est compris entre (0 et 4)
+                comptLigne++;// on increment le compteur de ligne
+              }
+              else{
+                comptLigne =1; // sinon on initalise le compteur a 1
+              }
+            }
+            else{// si ce n'est pas le  meme joueur, on renitialise le compteur a 1
+              comptLigne = 1;
+            }
+            lastJoueur = tabJoueur[y][i];// on modifie la valeur de la variable lastJoueur et on lui attribue la valeur du joueur actuel. pour tester a la prochaine boucle
+            if(comptLigne == 4){ // si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
+              victoire = 1;// on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
+              document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;// on affiche a l'ecan le nom du vainqueur
+              if(tabJoueur[y][i] == 1){// si le vainqueur est  le joueur 1
+                nbVictoire1++; // on lui increment la victoire
+              }
+              else{//sinon
+                nbVictoire2++; // on increment la victoire au joueur 2
+              }
+            }
+          }
+          else{
+            comptLigne =0;// sinon on rénitialise le compteur a 0
+          }
         }
-      }else{
-        comptLigne = 1;
       }
-      lastJoueur = tabJoueur[y][i];
-      if(comptLigne == 4){
-        victoire = 1;
-        document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
-        if(tabJoueur[y][i] == 1){
-          nbVictoire1++;
-        }else{
-          nbVictoire2++;
+
+
+  for (var i = 6 ; i >= 0 ; i--){// test victoire sur ligne vertical
+    var lastJoueurVertical; //variable qui servira de stockage du joueur a la case précédent
+    var comptColonne=0;// compteur de colonne
+      for(var y = 5 ; y >= 0 ; y--){// on va boucler sur la vertical
+        if(tabJoueur[i][y] != false){ // si on tombe sur une case non vide
+          if(lastJoueurVertical == tabJoueur[i][y] ){// si le joueur actuel est le meme que précedement sur la vertical
+            if(comptColonne >= 0 && comptColonne <= 4){ // si le compteur de ligne est compris entre (0 et 4)
+              comptColonne++; // on increment le compteur de colonne
+            }
+            else{
+              comptColonne =1 // sinon on initalise le compteur a 1
+            }
+          }
+          else{
+            comptColonne = 1; // si ce n'est pas le  meme joueur, on renitialise le compteur a 1
+          }
+          lastJoueurVertical = tabJoueur[i][y]; // on modifie la valeur de la variable lastJoueur et on lui attribue la valeur du joueur actuel. pour tester a la prochaine boucle
+          if(comptColonne == 4){ // si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
+            victoire = 1; // on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
+            document.getElementById('victoire').innerHTML = "Victoire du Joueur " +  tabJoueur[i][y] ; // on affiche a l'ecan le nom du vainqueur
+            if(tabJoueur[i][y] == 1){ // si le vainqueur est  le joueur 1
+              nbVictoire1++; // on lui increment la victoire
+            }
+            else{//sinon
+              nbVictoire2++;  // on increment la victoire au joueur 2
+            }
+          }
         }
-      }
-    }else{
-      comptLigne =0;
-    }
     }
   }
 
-  // test victoire sur ligne vertical
+  comptNull=0; // variable qui contiendra la nombre de valeur non null
   for (var i = 6 ; i >= 0 ; i--){
-
-    var lastJoueurVertical;
-    var comptColonne=0;
-  for(var y = 5 ; y >= 0 ; y--){
-    if(tabJoueur[i][y] != false){
-      if(lastJoueurVertical == tabJoueur[i][y] ){
-        if(comptColonne >= 0 && comptColonne <= 4){
-        comptColonne++;}
-        else{
-          comptColonne =1
-        }
-      }else{
-        comptColonne = 1;
-      }
-      lastJoueurVertical = tabJoueur[i][y];
-      if(comptColonne == 4){
-        victoire = 1;
-        document.getElementById('victoire').innerHTML = "Victoire du Joueur " +  tabJoueur[i][y] ;
-        if(tabJoueur[i][y] == 1){
-          nbVictoire1++;
-        }else{
-          nbVictoire2++;
-        }
+    for(var y = 5 ; y >= 0 ; y--){// on boucle sur toutes les valeurs du tableau
+      if(tabJoueur[i][y] != false){ //sir la valeur n'est pas nul,
+        comptNull++; // on increment la valeur de la variable
       }
     }
-    }
   }
-  // test match nul;
-  comptNull=0;
-for (var i = 6 ; i >= 0 ; i--){
-  for(var y = 5 ; y >= 0 ; y--){
-    if(tabJoueur[i][y] != false){
-    comptNull++;
-  }
+if(comptNull == 42){// sir la variable est égale a 42 (6*7)
+  nul = 1; // on increment le nul a 1. cela evite de continuer la partie alors qu'elle est terminé
+  document.getElementById('victoire').innerHTML = "Match null !!" ; // on affiche le match null à l'écran
 }
-}
-if(comptNull == 42){
-  nul = 1;
-  document.getElementById('victoire').innerHTML = "Match null !!" ;
-}
-  // test victoire sur ligne diagonale gauche
-  for (var i = 5 ; i >= 0 ; i--){
 
-    var lastJoueurDiagGauche;
-    var comptColonneDiagGauche=0;
-  for(var y = 6 ; y >= 0 ; y--){
-
-    if(tabJoueur[y][i] != false){
-      var varI= i;
-      var varY = y;
-      if( y >= 3 && i >=3 ){
-        lastJoueurDiagGauche="";
-        for (var g= 0; g < 4; g++){
-
-      if(lastJoueurDiagGauche == tabJoueur[varY][varI] ){
-
-        if(comptColonneDiagGauche >= 0 && comptColonneDiagGauche <= 4){
-        comptColonneDiagGauche++;}
-        else{
-          comptColonneDiagGauche =1
-      }
-      }
-
-
-      else{
-        comptColonneDiagGauche = 1;
-      }
-
-
-      lastJoueurDiagGauche = tabJoueur[varY][varI];
-      if(comptColonneDiagGauche == 4){
-        victoire = 1;
-        document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
-        if(tabJoueur[y][i] == 1){
-          nbVictoire1++;
-        }else{
-          nbVictoire2++;
+  for (var i = 5 ; i >= 0 ; i--){// test victoire sur ligne diagonale gauche
+    var lastJoueurDiagGauche; //variable qui servira de stockage du joueur a la case précédent
+    var comptColonneDiagGauche=0; // compteur de colonne
+    for(var y = 6 ; y >= 0 ; y--){ // on va boucler sur l'horizontal
+      if(tabJoueur[y][i] != false){ // si on tombe sur une case non vide
+      var varI= i; // on stock la variable I
+      var varY = y; // on stock la variable Y
+      if( y >= 3 && i >=3 ){// on evite les ligne >=3 et les colonnes >= 3. car ca ne servirai a rien de compter car il ne sera pas possible de faire une diagonale
+        lastJoueurDiagGauche=""; // on initialise la variable qui va stocker le precedent joueur
+        for (var g= 0; g < 4; g++){//on boucle 4 fois. ce qui nous permettera de teste la diagonale
+          if(lastJoueurDiagGauche == tabJoueur[varY][varI] ){// si le joueur précédent est le meme que maintenant
+            if(comptColonneDiagGauche >= 0 && comptColonneDiagGauche <= 4){ // si le compteur de ligne est compris entre (0 et 4)
+              comptColonneDiagGauche++; //on increment le compteur de colonne
+            }
+            else{
+              comptColonneDiagGauche =1  //sinon on initalise le compteur a 1
+            }
+          }
+          else{
+            comptColonneDiagGauche = 1;  // si ce n'est pas le  meme joueur, on renitialise le compteur a 1
+          }
+          lastJoueurDiagGauche = tabJoueur[varY][varI]; // on modifie la valeur de la variable lastJoueur et on lui attribue la valeur du joueur actuel. pour tester a la prochaine boucle
+          if(comptColonneDiagGauche == 4){ // si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
+            victoire = 1;// on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
+            document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ; // on affiche a l'ecan le nom du vainqueur
+            if(tabJoueur[y][i] == 1){ // si le vainqueur est  le joueur 1
+              nbVictoire1++; // on lui increment la victoire
+            }
+            else{//sinon
+              nbVictoire2++; // on increment la victoire au joueur 2
+            }
+          }
+          varI--;// On se decale vers le haut
+          varY--;// on se décale vers la gauche pour chercher a faire une diagonale
         }
       }
-      varI--;
-      varY--;
+    }
+    }
+  }
+
+for (var i = 5 ; i >= 0 ; i--){// test victoire sur ligne diagonale droite
+  var lastJoueurDiagDroite; //variable qui servira de stockage du joueur a la case précédent
+  var comptColonneDiagDroite=0; // compteur de colonne
+  for(var y = 6 ; y >= 0 ; y--){// on va boucler sur l'horizontal
+    if(tabJoueur[y][i] != false){ // si on tombe sur une case non vide
+      var varI= i; // on stock la variable I
+      var varY = y; // on stock la variable Y
+      if( y <= 3 && i >=3 ){ // on evite les ligne <=3 et les colonnes >= 3. car ca ne servirai a rien de compter car il ne sera pas possible de faire une diagonale
+        lastJoueurDiagDroite=""; // on initialise la variable qui va stocker le precedent joueur
+        for (var g= 0; g < 4; g++){ //on boucle 4 fois. ce qui nous permettera de teste la diagonale
+          if(lastJoueurDiagDroite == tabJoueur[varY][varI] ){ // si le joueur précédent est le meme que maintenant
+            if(comptColonneDiagDroite >= 0 && comptColonneDiagDroite <= 4){ // si le compteur de ligne est compris entre (0 et 4)
+              comptColonneDiagDroite++; //on increment le compteur de colonne
+            }
+            else{
+              comptColonneDiagDroite =1; //sinon on initalise le compteur a 1
+            }
+          }
+          else{
+            comptColonneDiagDroite = 1; // si ce n'est pas le  meme joueur, on renitialise le compteur a 1
+          }
+          lastJoueurDiagDroite = tabJoueur[varY][varI];// on modifie la valeur de la variable lastJoueur et on lui attribue la valeur du joueur actuel. pour tester a la prochaine boucle
+          if(comptColonneDiagDroite == 4){// si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
+            victoire = 1;// si le vainqueur est  le joueur 1
+            document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;// on affiche a l'ecan le nom du vainqueur
+            if(tabJoueur[y][i] == 1){// si le vainqueur est  le joueur 1
+              nbVictoire1++; // on lui increment la victoire
+            }
+            else{//sinon
+              nbVictoire2++;// on increment la victoire au joueur 2
+            }
+          }
+      varI--;// On se decale vers le haut
+      varY++;// on se décale vers la droite pour chercher a faire une diagonale
     }
   }
 }
-
-
-    }
-  }
-
-
-
-  // test victoire sur ligne diagonale droite
-  for (var i = 5 ; i >= 0 ; i--){
-
-    var lastJoueurDiagDroite;
-    var comptColonneDiagDroite=0;
-  for(var y = 6 ; y >= 0 ; y--){
-
-    if(tabJoueur[y][i] != false){
-      var varI= i;
-      var varY = y;
-      if( y <= 3 && i >=3 ){
-        lastJoueurDiagDroite="";
-        for (var g= 0; g < 4; g++){
-
-      if(lastJoueurDiagDroite == tabJoueur[varY][varI] ){
-
-        if(comptColonneDiagDroite >= 0 && comptColonneDiagDroite <= 4){
-        comptColonneDiagDroite++;}
-        else{
-          comptColonneDiagDroite =1;
-      }
-      }
-
-
-      else{
-        comptColonneDiagDroite = 1;
-      }
-      lastJoueurDiagDroite = tabJoueur[varY][varI];
-      if(comptColonneDiagDroite == 4){
-        victoire = 1;
-        document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;
-        if(tabJoueur[y][i] == 1){
-          nbVictoire1++;
-        }else{
-          nbVictoire2++;
-        }
-      }
-      varI--;
-      varY++;
-    }
-  }
 }
-
-
-    }
-  }
-
-
 }
-
-
-
+}
 </script>
