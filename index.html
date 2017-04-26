@@ -157,9 +157,19 @@ function iaOrdi(){
            comptVertical=0;
            comptVertical2=0;
            comptHorizontal=0;
+            comptHorizontal2=0;
            comptFalse=0;
            var myY2 = y-3;
-           for(var p=2; p >0; p--){
+           var myI2 = i-3;
+
+           var comptHorizontal2=0;
+           for(var g=2;g >0;g--){
+             var myI = i-g;
+              if(tabJoueur[y][myI]== 1 ){
+                comptHorizontal2++;
+           }
+         }
+            for(var p=2; p >0; p--){
              var myY = y-p;
              if(tabJoueur[myY][i]== 1 ){
                comptVertical++;
@@ -179,6 +189,11 @@ function iaOrdi(){
              }
            }
            }
+           if(comptHorizontal2 == 2 && myI2 >= 0 && tabJoueur[y][myI2]== false ){
+             addJetons(y);
+             jouer=1;
+             break;
+           }
            if(comptVertical == 2 && myY2 >=0 &&  tabJoueur[myY2][i]== false){
 
              addJetons(myY2);
@@ -191,6 +206,7 @@ function iaOrdi(){
              jouer=1;
              break;
            }
+
         }
         if(tabJoueur[y][i] == false){ // si la case est vide
           if(y != 6){ // si on ne se situe pas sur la premiere case
@@ -202,8 +218,6 @@ function iaOrdi(){
               var compt = 0;
               for(var b=0; b >2; b++){ // on boucle pour regarder si les 2 prochaines case sont vide
                 if(tabJoueur[newMyY][i] == false){
-                  compt++;
-                }
               }
               if(compt == 2){ // les deux prochaines cases sont vide, donc on peut insérer le jeton
                 addJetons(y);
