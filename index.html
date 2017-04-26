@@ -34,10 +34,17 @@ var nbVictoire2 =0; //initialisation du nbr de victoire du Joueur 2
 var tab, tabJoueur, victoire; //initialisation des tableau et nbr de victoire
 var iA; //variable qui me permettera de s'avoir si l'iA est activé ou non
 function vsJoueur(){ //si on clic sur la bouton contre joueur
+  var nomJoueur1 = prompt('Nom du joueur 1 :',"");//on demande le nom du joueur1
+  var nomJoueur2 = prompt('Nom du joueur 2 :',"");//on demande le nom du joueur2
+  localStorage.setItem('joueur1',nomJoueur1);//on sauvegarde le nom du joueur1 dans le local storage
+  localStorage.setItem('joueur2',nomJoueur2);//on sauvegarde le nom du joueur2 dans le local storage
   iA = false; //ia désactivé
   startGame(); // on lance la game
 }
 function vsIa(){ // si on clic contre l'ordi
+  var nomJoueur1 = prompt('Nom du joueur 1 :',"");//on demande le nom du joueur1
+  localStorage.setItem('joueur1',nomJoueur1);//on sauvegarde le nom du joueur1 dans le local storage
+  localStorage.setItem('joueur2','ordinateur');//on sauvegarde le nom de l'ordinateur dans le local storage
   iA = true; // ia activé
   startGame(); // on lance la game
 }
@@ -55,7 +62,7 @@ function startGame(){ // fonction qui lance la partie
  tab = tableauInit(); // on initialise un tableau qui permettera de savoir quel case sont occupé
  tabJoueur = choixJoueurInit(); // on initialise tableau qui nous permettera de savoir quel joueur a pris tel case.
  initGrille(); // on initialise l'afficahge de la grille de jeux
- var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">Joueur 1 : '+nbVictoire1+'</p><p style="color:blue;">Joueur 2 : '+nbVictoire2+'</p></div>'; // on affiche le tableau des scores
+ var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+nbVictoire1+'</p><p style="color:blue;">'+ localStorage.getItem('joueur2') +' : '+nbVictoire2+'</p></div>'; // on affiche le tableau des scores
 
 }
 
@@ -73,7 +80,7 @@ function restartGame(){ // fonction qui sera lancer si le joueur appuie sur rest
    tab = tableauInit();
    tabJoueur = choixJoueurInit();
    initGrille();
-   var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">Joueur 1 : '+nbVictoire1+'</p><p style="color:blue;">Joueur 2 : '+nbVictoire2+'</p></div>';
+   var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+nbVictoire1+'</p><p style="color:blue;">'+localStorage.getItem('joueur2')+' : '+nbVictoire2+'</p></div>';
 
 }
 function initJoueur(){// fonction qui initalise le premier joueur
@@ -329,7 +336,8 @@ function testVainqueur(){ // fonction qui permettera de tester si il y a victoir
             lastJoueur = tabJoueur[y][i];// on modifie la valeur de la variable lastJoueur et on lui attribue la valeur du joueur actuel. pour tester a la prochaine boucle
             if(comptLigne == 4){ // si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
               victoire = 1;// on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
-              document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;// on affiche a l'ecan le nom du vainqueur
+              var joueur = 'joueur'+tabJoueur[y][i];
+              document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ;// on affiche a l'ecan le nom du vainqueur
               if(tabJoueur[y][i] == 1){// si le vainqueur est  le joueur 1
                 console.log("test");
                 nbVictoire1++; // on lui increment la victoire
@@ -365,7 +373,8 @@ function testVainqueur(){ // fonction qui permettera de tester si il y a victoir
           lastJoueurVertical = tabJoueur[i][y]; // on modifie la valeur de la variable lastJoueur et on lui attribue la valeur du joueur actuel. pour tester a la prochaine boucle
           if(comptColonne == 4){ // si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
             victoire = 1; // on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
-            document.getElementById('victoire').innerHTML = "Victoire du Joueur " +  tabJoueur[i][y] ; // on affiche a l'ecan le nom du vainqueur
+            var joueur = 'joueur'+tabJoueur[i][y];
+            document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ; // on affiche a l'ecan le nom du vainqueur
             if(tabJoueur[i][y] == 1){ // si le vainqueur est  le joueur 1
               nbVictoire1++; // on lui increment la victoire
             }
@@ -414,7 +423,8 @@ if(comptNull == 42){// sir la variable est égale a 42 (6*7)
           lastJoueurDiagGauche = tabJoueur[varY][varI]; // on modifie la valeur de la variable lastJoueur et on lui attribue la valeur du joueur actuel. pour tester a la prochaine boucle
           if(comptColonneDiagGauche == 4){ // si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
             victoire = 1;// on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
-            document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ; // on affiche a l'ecan le nom du vainqueur
+            var joueur = 'joueur'+tabJoueur[y][i];
+            document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ; // on affiche a l'ecan le nom du vainqueur
             if(tabJoueur[y][i] == 1){ // si le vainqueur est  le joueur 1
               nbVictoire1++; // on lui increment la victoire
             }
@@ -454,7 +464,8 @@ for (var i = 5 ; i >= 0 ; i--){// test victoire sur ligne diagonale droite
           lastJoueurDiagDroite = tabJoueur[varY][varI];// on modifie la valeur de la variable lastJoueur et on lui attribue la valeur du joueur actuel. pour tester a la prochaine boucle
           if(comptColonneDiagDroite == 4){// si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
             victoire = 1;// si le vainqueur est  le joueur 1
-            document.getElementById('victoire').innerHTML = "Victoire du Joueur " + + tabJoueur[y][i] ;// on affiche a l'ecan le nom du vainqueur
+            var joueur = 'joueur'+tabJoueur[y][i];
+            document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ;// on affiche a l'ecan le nom du vainqueur
             if(tabJoueur[y][i] == 1){// si le vainqueur est  le joueur 1
               nbVictoire1++; // on lui increment la victoire
             }
