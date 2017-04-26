@@ -28,190 +28,185 @@ body {
 </body>
 </html>
 <script>
-var noBtn;
-var nbVictoire1 =0;
-var nbVictoire2 =0;
-var tab, tabJoueur, victoire;
-var iA;
-function vsJoueur(){
-  iA = false;
-  startGame();
+var noBtn; // variable qui me permettera de s'avoir si les bouton de démarage sont activée ou non
+var nbVictoire1 =0; //initialisation du nbr de victoire du Joueur 1
+var nbVictoire2 =0; //initialisation du nbr de victoire du Joueur 2
+var tab, tabJoueur, victoire; //initialisation des tableau et nbr de victoire
+var iA; //variable qui me permettera de s'avoir si l'iA est activé ou non
+function vsJoueur(){ //si on clic sur la bouton contre joueur
+  iA = false; //ia désactivé
+  startGame(); // on lance la game
 }
-function vsIa(){
-  iA = true;
-  startGame();
+function vsIa(){ // si on clic contre l'ordi
+  iA = true; // ia activé
+  startGame(); // on lance la game
 }
-function startGame(){
- noBtn = 0;
-var btn =  document.getElementById('buttonStart1');
-btn.parentNode.removeChild(btn);
-var btn2 =  document.getElementById('buttonStart2');
-btn2.parentNode.removeChild(btn2);
+function startGame(){ // fonction qui lance la partie
 
-  var jeton, joueur;
-  victoire = 0;
-  nul = 0;
-  initJoueur();
+ noBtn = 0; // variable qui me permet de savoir que les boutons sont désactivé
+ var btn =  document.getElementById('buttonStart1'); // on stock le bouton 1
+ btn.parentNode.removeChild(btn); // on supprime le bouton 1
+ var btn2 =  document.getElementById('buttonStart2');  // on stock le bouton 2
+ btn2.parentNode.removeChild(btn2); // on supprime le bouton 2
+ var jeton, joueur; //on initialise les variable jetons et joueurs
+ victoire = 0; // on initialise la variable qui me permettera de savoir si la partie est gagné
+ nul = 0; // on initialise la variable qui me permettera de savoir si la partie est null
+ initJoueur(); // fonction qui initialise les joueurs et leur attribut un nombre et un jeton
+ tab = tableauInit(); // on initialise un tableau qui permettera de savoir quel case sont occupé
+ tabJoueur = choixJoueurInit(); // on initialise tableau qui nous permettera de savoir quel joueur a pris tel case.
+ initGrille(); // on initialise l'afficahge de la grille de jeux
+ var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">Joueur 1 : '+nbVictoire1+'</p><p style="color:blue;">Joueur 2 : '+nbVictoire2+'</p></div>'; // on affiche le tableau des scores
+
+}
+
+function restartGame(){ // fonction qui sera lancer si le joueur appuie sur restart et si au moins une game a été joué, fait la même chose que la fonction précédente a l exception des boutons affiché
+   noBtn = 0;
+   var btn =  document.getElementById('restartGame');
+   btn.parentNode.removeChild(btn);
+   var removeScore =  document.getElementById('score');
+   removeScore.parentNode.removeChild(removeScore);
+   document.getElementById('victoire').innerHTML = "";
+   var jeton, joueur;
+   victoire = 0;
+   nul = 0;
+   initJoueur();
    tab = tableauInit();
    tabJoueur = choixJoueurInit();
-
-  initGrille();
-  var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">Joueur 1 : '+nbVictoire1+'</p><p style="color:blue;">Joueur 2 : '+nbVictoire2+'</p></div>';
-
-}
-
-function restartGame(){
-   noBtn = 0;
-  var btn =  document.getElementById('restartGame');
-  btn.parentNode.removeChild(btn);
-  var removeScore =  document.getElementById('score');
-    removeScore.parentNode.removeChild(removeScore);
-    document.getElementById('victoire').innerHTML = "";
-    var jeton, joueur;
-    victoire = 0;
-    nul = 0;
-    initJoueur();
-     tab = tableauInit();
-     tabJoueur = choixJoueurInit();
-
-    initGrille();
-    var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">Joueur 1 : '+nbVictoire1+'</p><p style="color:blue;">Joueur 2 : '+nbVictoire2+'</p></div>';
+   initGrille();
+   var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">Joueur 1 : '+nbVictoire1+'</p><p style="color:blue;">Joueur 2 : '+nbVictoire2+'</p></div>';
 
 }
-var jeton, joueur;
-function initJoueur(){
-  jeton = "jetonjaune.gif";
+function initJoueur(){// fonction qui initalise le premier joueur
+  jeton = "jetonjaune.gif"; //on lui attribue le jeton jaune
   joueur = 1;
 }
 
-function changeJoueur(){
-  if(joueur == 1){
-    joueur = 2;
-    jeton = "jetonrouge.gif";
-  }else{
-    joueur = 1;
-    jeton = "jetonjaune.gif";
+function changeJoueur(){ // fonction qui permet de switcher de joueur si on est en mode joueur contre joueur
+  if(joueur == 1){ // si le joueur actuel est 1
+    joueur = 2; //le joueur actuel devient 2
+    jeton = "jetonrouge.gif"; // sont jeton est rouge
+  }else{  //si le joueur  actuel n'est pas le joueur 1
+    joueur = 1; //le joueur actuel devient 1
+    jeton = "jetonjaune.gif"; // sont jeton est jaune
   }
 }
-function changeJoueurIa(){
-  if(joueur == 1){
-    joueur = 2;
-    jeton = "jetonrouge.gif";
-    iaOrdi();
-  }else{
-    joueur = 1;
-    jeton = "jetonjaune.gif";
+function changeJoueurIa(){ // fonction qui permet de switcher de joueur si on est en mode joueur contre l'ordinateur
+  if(joueur == 1){ // si le joueur actuel est 1
+    joueur = 2; //le joueur actuel devie
+    jeton = "jetonrouge.gif"; // sont jeton est rouge
+    iaOrdi(); // on lance l'ia de l'ordinateur
+  }else{ //si le joueur  actuel n'est pas le joueur 1
+    joueur = 1; //le joueur actuel devient 1
+    jeton = "jetonjaune.gif"; // sont jeton est jaune
   }
 }
-function tableauInit(){
-var tab = new Array();
-  for(var i = 0 ; i < 7 ; i++){
-    tab[i] = new Array();
-      for (var y = 0 ; y < 6 ; y++){
-        tab[i].push(false)
-          }
+function tableauInit(){ // tableau qui initialise les valeurs
+var tab = new Array(); // on déclare un tableau
+  for(var i = 0 ; i < 7 ; i++){ // on boucle sur les lignes du jeux
+    tab[i] = new Array(); // on déclare un tableau de tableau
+      for (var y = 0 ; y < 6 ; y++){ // on boucle sur les colonne du jeux
+        tab[i].push(false) // on met false a toutes les cases du jeux. Cela nous permettera de savoir que la case est vide
+      }
   }
-  return tab;
+  return tab; // on retourne le tableau
 }
 
 
-function choixJoueurInit(){
+function choixJoueurInit(){ // on fait exactement la même chose que précédement
 var tabJoueur = new Array();
   for(var i = 0 ; i < 7 ; i++){
     tabJoueur[i] = new Array();
       for (var y = 0 ; y < 6 ; y++){
         tabJoueur[i].push(false)
-          }
+      }
   }
   return tabJoueur;
 }
 
 
 
-function initGrille(){
-  var tr1 = new Array();
-
-    for(var i = 0 ; i < 6 ; i++){
-      if (i == 0){
-        tr = '<table cellspacing="0" cellpadding="0" width="350"><tbody><tr id="Ligne'+i+'">';
-      }else{
-       tr = '<tr id="Ligne'+i+'">';
-     }
-        for (var y = 0 ; y < 7 ; y++){
-          tr += '<td id="Colonne'+y+'" onclick="addJetons('+y+');"><img src="images/case.gif"> </td>';
-            }
-            if(i == 6){
-            tr += '</tr></tbody></table>';
+function initGrille(){ // fonction qui permet d'initialiser la grille d'afficahge du jeux
+  var tr1 = new Array();// on initialise un tableau
+  for(var i = 0 ; i < 6 ; i++){ // on boucle sur les lignes du jeux
+      if (i == 0){ // si on est sur la premiere ligne du tableau
+        tr = '<table cellspacing="0" cellpadding="0" width="350"><tbody><tr id="Ligne'+i+'">'; // on creer la table et le tr
+      }
+      else{ // si on est pas sur la premiere ligne
+       tr = '<tr id="Ligne'+i+'">'; // on créer les différent tr
+      }
+      for (var y = 0 ; y < 7 ; y++){ // on boucle sur les colonnes du jeux
+          tr += '<td id="Colonne'+y+'" onclick="addJetons('+y+');"><img src="images/case.gif"> </td>';// on affiche les td avec une images de la grille
+      }
+          if(i == 6){ // si on est sur la derniere ligne et derniere colonnes
+            tr += '</tr></tbody></table>'; // on ferme la table
+           }
+          else{// sinon
+          tr +='</tr>'; // on ferme les tr
           }
-          else {
-          tr +='</tr>';
-          }
-            tr1.push(tr);
-    }
-    document.getElementById("tableau").innerHTML = tr1;
+      tr1.push(tr); //on insere dans notre tableau tout notre html créer précédement
+  }
+    document.getElementById("tableau").innerHTML = tr1; // on affiche notre grille du jeu
 }
-function iaOrdi(){
-  var jouer=0;
-    for (var i = 5 ; i >= 0 ; i--){
-      if(jouer == 0){
-      for(var y = 6 ; y >= 0 ; y--){
-         if(tabJoueur[y][i] == 1){ //defense
-           comptVertical=0;
-           comptVertical2=0;
-           comptHorizontal=0;
-            comptHorizontal2=0;
-           comptFalse=0;
-           var myY2 = y-3;
-           var myI2 = i-3;
 
-           var comptHorizontal2=0;
-           for(var g=2;g >0;g--){
+
+function iaOrdi(){ // fonction d'intelligence artificiel du jeux
+  var jouer=0; // variable qui nous permettera de savoir si on a déja joueur un tour. et eviter de jouer plusieur fois de suits
+    for (var i = 5 ; i >= 0 ; i--){ // boucle qui nous fait parcourir les colonnes en commencant a droite
+      if(jouer == 0){ // si on a pas déjà jouer un jeton
+      for(var y = 6 ; y >= 0 ; y--){ // boucle qui nous fait parcourir les lignes en commencant par le bas
+         if(tabJoueur[y][i] == 1){ // On va commencer par se défendre si le joueur a deja 3 jeton d'aligner
+           comptVertical=0;// premier compteur vertical
+           comptVertical2=0;// deuxieme compteur vertical
+           comptHorizontal=0;// premier compteur horizontal
+           comptHorizontal2=0;// deuxieme compteur vertihorizontalcal
+           comptFalse=0; // compteur de case a nul
+           var myY2 = y-3; //variable qui permettera de recuperer une valeur 3 case en arriere sur l'horizontal
+           var myI2 = i-3; //variable qui permettera de recuperer une valeur 3 case en arriere sur la vertical
+
+           for(var g=2;g >0;g--){ //boucle qui nous permet de savoir si le joueur a deux autre pions a lui au dessus du jeton que je check
              var myI = i-g;
-             if(myI >=0){
-              if(tabJoueur[y][myI]== 1 ){
-                comptHorizontal2++;
-           }
-         }
-         }
-            for(var p=2; p >0; p--){
-             var myY = y-p;
-             if(myY >=0){
-             if(tabJoueur[myY][i]== 1 ){
-               comptVertical++;
-             }}
-
-           }
-           for(var p=3; p >0; p--){
-             var myY = y-p;
-             if(myY >=0){
-             if(tabJoueur[myY][i]== 1){
-               comptVertical2++;
+             if(myI >=0){ // on verifie que l'ont se situe toujours dans la grille
+              if(tabJoueur[y][myI]== 1){
+                comptHorizontal2++; //ne pas se fier au nom: ici il s'agit d'une vérification vertical
+              }
              }
            }
-           if(myY >=0){
-             if(tabJoueur[myY][i]== false){
+            for(var p=2; p >0; p--){//boucle qui nous permet de savoir si le joueur a deux autre pions a lui qui précedent horizontalement le jeton que je check
+              var myY = y-p;
+              if(myY >=0){ // on verifie que l'ont se situe toujours dans la grille
+                if(tabJoueur[myY][i]== 1 ){
+                  comptVertical++;
+                }
+              }
+            }
+           for(var p=3; p >0; p--){//boucle qui nous permet de savoir si le joueur a trois  pions a lui alligné verticalement sur un espace de 4 avec un trou entre les 3 jetons.Cela nous permettera de nous placé entre les jetons pour lui eviter d'aligner les 4 jetons
+             var myY = y-p;
+             if(myY >=0){ // on verifie que l'ont se situe toujours dans la grille
+               if(tabJoueur[myY][i]== 1){
+                 comptVertical2++;
+               }
+              }
+             if(myY >=0){ // on verifie que l'ont se situe toujours dans la grille
+               if(tabJoueur[myY][i]== false){ // on verifie que le trou entre les jetons est bien vide.
                comptFalse = myY;
+               }
              }
            }
+           if(comptHorizontal2 == 2 && myI2 >= 0 && tabJoueur[y][myI2]== false ){ //ne pas se fier au nom: ici il s'agit d'une vérification vertical.si il y a bien deux jetons au dessus du jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert
+             addJetons(y);// on insert le jeton de l'ordinateur a la bonne colonne
+             jouer=1;// on indique que l'ont a deja jouer
+             break; // on quitte la boucle
            }
-           if(comptHorizontal2 == 2 && myI2 >= 0 && tabJoueur[y][myI2]== false ){
-             addJetons(y);
-             jouer=1;
-             break;
+           if(comptVertical == 2 && myY2 >=0 &&  tabJoueur[myY2][i]== false){//si il y a bien deux jetons qui précent le jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert
+             addJetons(myY2); // on insert le jeton de l'ordinateur a la bonne colonne
+             jouer=1;// on indique que l'ont a deja jouer
+             break; // on quitte la boucle
            }
-           if(comptVertical == 2 && myY2 >=0 &&  tabJoueur[myY2][i]== false){
-
-             addJetons(myY2);
-             jouer=1;
-             break;
+           if(comptVertical2 == 2 && comptFalse !=0 ){//si il y a trois jetons aligner horizontalement sur un espace de 4 et que l'espace entre les 3 jetons et bien a false
+             addJetons(comptFalse); // on insert le jeton de l'ordinateur a la bonne colonne
+             jouer=1;  // on indique que l'ont a deja jouer
+             break;// on quitte la boucle
            }
-           if(comptVertical2 == 2 && comptFalse !=0 ){
-
-             addJetons(comptFalse);
-             jouer=1;
-             break;
-           }
-
         }
         if(tabJoueur[y][i] == false){
 
