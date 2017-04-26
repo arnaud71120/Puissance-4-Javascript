@@ -132,6 +132,42 @@ function iaOrdi(){
     for (var i = 5 ; i >= 0 ; i--){
       if(jouer == 0){
       for(var y = 6 ; y >= 0 ; y--){
+         if(tabJoueur[y][i] == 1){ //defense
+           comptVertical=0;
+           comptVertical2=0;
+           comptHorizontal=0;
+           comptFalse=0;
+           var myY2 = y-3;
+           for(var p=2; p >0; p--){
+             var myY = y-p;
+             if(tabJoueur[myY][i]== 1 ){
+               comptVertical++;
+             }
+
+           }
+           for(var p=3; p >0; p--){
+             var myY = y-p;
+             if(tabJoueur[myY][i]== 1){
+               comptVertical2++;
+             }
+             if(tabJoueur[myY][i]== false){
+               comptFalse = myY;
+             }
+           }
+           if(comptVertical == 2 && myY2 >=0 &&  tabJoueur[myY2][i]== false){
+
+             addJetons(myY2);
+             jouer=1;
+             break;
+           }
+           console.log(comptVertical2);
+           if(comptVertical2 == 2 && comptFalse !=0 ){
+
+             addJetons(comptFalse);
+             jouer=1;
+             break;
+           }
+        }
         if(tabJoueur[y][i] == false){ // si la case est vide
           if(y != 6){ // si on ne se situe pas sur la premiere case
             var myI = i; // on enleve 1 pour checker si la case précédente nous appartient
@@ -146,7 +182,6 @@ function iaOrdi(){
                 }
               }
               if(compt == 2){ // les deux prochaines cases sont vide, donc on peut insérer le jeton
-                console.log('test1');
                 addJetons(y);
                 break;
               }
@@ -154,14 +189,13 @@ function iaOrdi(){
               var newMyY = y+1;
               var compt = 0;
               for(var b= newMyY; b > newMyY-3; b--){
-                  console.log(b);
                   if( b>=0){
                 if(tabJoueur[b][i] == false ){
                   compt++;
                 }}
               }
               if(compt == 3){ // les trois prochaines cases sont vide, donc on peut insérer le jeton
-                console.log('test2');
+
                 addJetons(newMyY);
                 jouer = 1;
                 break;
@@ -170,12 +204,31 @@ function iaOrdi(){
           }
 
         }
+        else if(tabJoueur[y][i] == 2){
+          lastJoueur= tabJoueur[y][i];
+          for(o=i; o <=0;o--){
+            if(o <= 3){
+              break;
+            }
+            if(tabJoueur[y][o]==false ){
+              if(lastJoueur == 2 ){
+                addJetons(y);
+                jouer = 1;
+              }
+            }
+            lastJoueur=tabJoueur[y][o];
+
+          }
+
+        }
+        else{
+          break;
+        }
+        }
       }
-    }else{
-      break;
     }
     }
-}
+
 function addJetons(value){
   if(victoire == 0){
   for(var i = 5 ; i >= 0 ; i--){
