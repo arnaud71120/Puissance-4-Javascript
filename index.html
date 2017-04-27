@@ -1,5 +1,4 @@
-<!doctype html>
-<html lang="fr">
+<html>
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="Content-Language" content="fr" />
@@ -8,7 +7,9 @@ body {
   background-image: url("background.jpg");
 }
 </style>
-<title>Puissance 4</title>
+ <title>
+ Puissance 4
+</title>
 </head>
 <body style="background-image: url('images/background.jpg')">
 <center>
@@ -39,8 +40,14 @@ function returnMenu(){ //fonction qui permet de retourner au menu principal
   document.getElementById('tableau').innerHTML = '';
 }
 function vsJoueur(){ //si on clic sur la bouton contre joueur
-  var nomJoueur1 = prompt('Nom du joueur 1 :',"");//on demande le nom du joueur1
-  var nomJoueur2 = prompt('Nom du joueur 2 :',"");//on demande le nom du joueur2
+  var nomJoueur1;
+  var nomJoueur2;
+  while(nomJoueur1== null || nomJoueur1== '' ) {// tant que le nom du joueur est vide ou null
+  nomJoueur1= prompt('Nom du joueur 1 :',"");//on demande le nom du joueur1;
+  }
+  while(nomJoueur2== null || nomJoueur2== '' ) {// tant que le nom du joueur est vide ou null
+  nomJoueur2= prompt('Nom du joueur 2 :',"");//on demande le nom du joueur2;
+  }
   localStorage.setItem('joueur1',nomJoueur1);//on sauvegarde le nom du joueur1 dans le local storage
   localStorage.setItem('joueur2',nomJoueur2);//on sauvegarde le nom du joueur2 dans le local storage
   initScore();//on appel la fonction d'initialisation du score
