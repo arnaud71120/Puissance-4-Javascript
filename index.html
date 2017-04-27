@@ -75,6 +75,7 @@ function vsIa(){ // si on clic contre l'ordi
   iA = true; // ia activé
   startGame(); // on lance la game
 }
+try {//utilisation d'un try catch
 function startGame(){ // fonction qui lance la partie
 
  noBtn = 0; // variable qui me permet de savoir que les boutons sont désactivé
@@ -90,7 +91,9 @@ function startGame(){ // fonction qui lance la partie
  tabJoueur = choixJoueurInit(); // on initialise tableau qui nous permettera de savoir quel joueur a pris tel case.
  initGrille(); // on initialise l'afficahge de la grille de jeux
  var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+ localStorage.getItem('joueur2') +' : '+localStorage.getItem('score2')+'</p><p><button type="button" id="btnReturnMenu" onclick="returnMenu()">Retourner au menu</button></p></div>'; // on affiche le tableau des scores
-
+}
+}catch (e) {
+  console.log('Une erreur à eu lieu : ' + e);
 }
 
 function restartGame(){ // fonction qui sera lancer si le joueur appuie sur restart et si au moins une game a été joué, fait la même chose que la fonction précédente a l exception des boutons affiché
