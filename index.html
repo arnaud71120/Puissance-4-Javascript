@@ -328,6 +328,8 @@ function addJetons(value){ // fonction permettant d'ajouter un jeton
 
 
 function testVainqueur(){ // fonction qui permettera de tester si il y a victoire ou non
+  var vainqueurOk=0;
+  if (vainqueurOk == 0){// on test si un vainqueur a deja le score d'incrementer. Pour eviter deux incrémentation en cas de deux lignes vainqueur
   for (var i = 5 ; i >= 0 ; i--){// test victoire sur ligne horizontal
     var lastJoueur; // variable qui servira de stockage du joueur a la case précédente
     var comptLigne=0;// compteur de ligne
@@ -348,8 +350,9 @@ function testVainqueur(){ // fonction qui permettera de tester si il y a victoir
             if(comptLigne == 4){ // si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
               victoire = 1;// on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
               var joueur = 'joueur'+tabJoueur[y][i];
+              vainqueurOk = 1;
               document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ;// on affiche a l'ecan le nom du vainqueur
-              ajoutScore(tabJoueur[y][i]);
+              ajoutScore(tabJoueur[y][i]);//fonction qui va inscrémenter le score au joueur
             }
           }
           else{
@@ -357,8 +360,9 @@ function testVainqueur(){ // fonction qui permettera de tester si il y a victoir
           }
         }
       }
+    }
 
-
+if (vainqueurOk == 0){// on test si un vainqueur a deja le score d'incrementer. Pour eviter deux incrémentation en cas de deux lignes vainqu
   for (var i = 6 ; i >= 0 ; i--){// test victoire sur ligne vertical
     var lastJoueurVertical; //variable qui servira de stockage du joueur a la case précédent
     var comptColonne=0;// compteur de colonne
@@ -379,13 +383,16 @@ function testVainqueur(){ // fonction qui permettera de tester si il y a victoir
           if(comptColonne == 4){ // si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
             victoire = 1; // on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
             var joueur = 'joueur'+tabJoueur[i][y];
+            vainqueurOk = 1;
             document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ; // on affiche a l'ecan le nom du vainqueur
-            ajoutScore(tabJoueur[i][y]);
+            ajoutScore(tabJoueur[i][y]);//fonction qui va inscrémenter le score au joueur
           }
         }
     }
   }
+}
 
+if (vainqueurOk == 0){// on test si un vainqueur a deja le score d'incrementer. Pour eviter deux incrémentation en cas de deux lignes vainqu
   comptNull=0; // variable qui contiendra la nombre de valeur non null
   for (var i = 6 ; i >= 0 ; i--){
     for(var y = 5 ; y >= 0 ; y--){// on boucle sur toutes les valeurs du tableau
@@ -398,7 +405,9 @@ if(comptNull == 42){// sir la variable est égale a 42 (6*7)
   nul = 1; // on increment le nul a 1. cela evite de continuer la partie alors qu'elle est terminé
   document.getElementById('victoire').innerHTML = "Match null !!" ; // on affiche le match null à l'écran
 }
+}
 
+if (vainqueurOk == 0){// on test si un vainqueur a deja le score d'incrementer. Pour eviter deux incrémentation en cas de deux lignes vainqu
   for (var i = 5 ; i >= 0 ; i--){// test victoire sur ligne diagonale gauche
     var lastJoueurDiagGauche; //variable qui servira de stockage du joueur a la case précédent
     var comptColonneDiagGauche=0; // compteur de colonne
@@ -424,7 +433,8 @@ if(comptNull == 42){// sir la variable est égale a 42 (6*7)
           if(comptColonneDiagGauche == 4){ // si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
             victoire = 1;// on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
             var joueur = 'joueur'+tabJoueur[y][i];
-            ajoutScore(tabJoueur[y][i]);
+            vainqueurOk = 1;
+            ajoutScore(tabJoueur[y][i]);//fonction qui va inscrémenter le score au joueur
             document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ; // on affiche a l'ecan le nom du vainqueur
             }
           varI--;// On se decale vers le haut
@@ -434,7 +444,9 @@ if(comptNull == 42){// sir la variable est égale a 42 (6*7)
     }
     }
   }
+}
 
+if (vainqueurOk == 0){// on test si un vainqueur a deja le score d'incrementer. Pour eviter deux incrémentation en cas de deux lignes vainqu
 for (var i = 5 ; i >= 0 ; i--){// test victoire sur ligne diagonale droite
   var lastJoueurDiagDroite; //variable qui servira de stockage du joueur a la case précédent
   var comptColonneDiagDroite=0; // compteur de colonne
@@ -460,13 +472,15 @@ for (var i = 5 ; i >= 0 ; i--){// test victoire sur ligne diagonale droite
           if(comptColonneDiagDroite == 4){// si le compteur de Ligne compte 4, cela veut dire que 4 jeton se suivent et donc il y a vainqueur
             victoire = 1;// si le vainqueur est  le joueur 1
             var joueur = 'joueur'+tabJoueur[y][i];
+            vainqueurOk = 1;
             document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ;// on affiche a l'ecan le nom du vainqueur
-            ajoutScore(tabJoueur[y][i]);
+            ajoutScore(tabJoueur[y][i]);//fonction qui va inscrémenter le score au joueur
             }
       varI--;// On se decale vers le haut
       varY++;// on se décale vers la droite pour chercher a faire une diagonale
     }
   }
+}
 }
 }
 }
