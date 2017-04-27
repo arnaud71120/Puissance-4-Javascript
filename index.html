@@ -213,22 +213,22 @@ function iaOrdi(){ // fonction d'intelligence artificiel du jeux
            comptHorizontal3=0;// deuxieme compteur vertihorizontalcal
            comptFalse=0; // compteur de case a nul
            var myY2 = y-3; //variable qui permettera de recuperer une valeur 3 case en arriere sur l'horizontal
-           var myY3 = y+3; //variable qui permettera de recuperer une valeur 3 case en arriere sur l'horizontal
+           var myY3 = y+3; //variable qui permettera de recuperer une valeur 3 case en avant sur l'horizontal
            var myI2 = i-3; //variable qui permettera de recuperer une valeur 3 case en arriere sur la vertical
            var myI = i-2;
            for(var g=2;g >0;g--){ //boucle qui nous permet de savoir si le joueur a deux autre pions a lui au dessus du jeton que je check
              var myI = i-g;
              if(myI >=0){ // on verifie que l'ont se situe toujours dans la grille
               if(tabJoueur[y][myI]== 1){
-                comptHorizontal2++; //ne pas se fier au nom: ici il s'agit d'une vérification vertical
+                comptVertical2++; //on incrimente la vérification vertical
               }
              }
            }
-            for(var p=2; p >0; p--){//boucle qui nous permet de savoir si le joueur a deux autre pions a lui qui précedent horizontalement le jeton que je check
+            for(var p=2; p >0; p--){//boucle qui nous permet de savoir si le joueur a deux autre pions a le suive horizontalement le jeton que je check
                myY = y-p;
               if(myY >=0){ // on verifie que l'ont se situe toujours dans la grille
                 if(tabJoueur[myY][i]== 1 ){
-                  comptVertical++;
+                  comptHorizontal++; //on incrimente la vérification vertical
                 }
               }
             }
@@ -236,7 +236,7 @@ function iaOrdi(){ // fonction d'intelligence artificiel du jeux
                myY = y+l;
               if(myY <=6){ // on verifie que l'ont se situe toujours dans la grille
                 if(tabJoueur[myY][i]== 1 ){
-                  comptVertical3++;
+                  comptHorizontal3++; //on incrimente la vérification horizontal
                 }
               }
             }
@@ -245,7 +245,7 @@ function iaOrdi(){ // fonction d'intelligence artificiel du jeux
              var myY = y-k;
              if(myY >=0){ // on verifie que l'ont se situe toujours dans la grille
                if(tabJoueur[myY][i]== 1){
-                 comptVertical2++;
+                 comptHorizontal2++; //on incrimente la vérification vertical
                }
               }
              if(myY >=0){ // on verifie que l'ont se situe toujours dans la grille
@@ -254,22 +254,22 @@ function iaOrdi(){ // fonction d'intelligence artificiel du jeux
                }
              }
            }
-           if(comptHorizontal2 == 2 && myI2 >= 0 && tabJoueur[y][myI2]== false ){ //ne pas se fier au nom: ici il s'agit d'une vérification vertical.si il y a bien deux jetons au dessus du jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert             addJetons(y);// on insert le jeton de l'ordinateur a la bonne colonne
+           if(comptVertical2 == 2 && myI2 >= 0 && tabJoueur[y][myI2]== false ){ //si il y a bien deux jetons au dessus du jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert             addJetons(y);// on insert le jeton de l'ordinateur a la bonne colonne
               addJetons(y);
              jouer=1;// on indique que l'ont a deja jouer
              break; // on quitte la boucle
            }
-           if(comptVertical == 2 && myY2 >=0 &&  tabJoueur[myY2][i]== false){//si il y a bien deux jetons qui précent le jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert
+           if(comptHorizontal == 2 && myY2 >=0 &&  tabJoueur[myY2][i]== false){//si il y a bien deux jetons qui suive le jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert
              addJetons(myY2); // on insert le jeton de l'ordinateur a la bonne colonne
              jouer=1;// on indique que l'ont a deja jouer
              break; // on quitte la boucle
            }
-           if(comptVertical3 == 2 && myY3 <=6 &&  tabJoueur[myY3][i]== false){//si il y a bien deux jetons qui précent le jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert
+           if(comptHorizontal3 == 2 && myY3 <=6 &&  tabJoueur[myY3][i]== false){//si il y a bien deux jetons qui précent le jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert
              addJetons(myY3); // on insert le jeton de l'ordinateur a la bonne colonne
              jouer=1;// on indique que l'ont a deja jouer
              break; // on quitte la boucle
            }
-           if(comptVertical2 == 2 && comptFalse !=0 ){//si il y a trois jetons aligner horizontalement sur un espace de 4 et que l'espace entre les 3 jetons et bien a false
+           if(comptHorizontal2 == 2 && comptFalse !=0 ){//si il y a trois jetons aligner horizontalement sur un espace de 4 et que l'espace entre les 3 jetons et bien a false
              addJetons(comptFalse); // on insert le jeton de l'ordinateur a la bonne colonne
              jouer=1;  // on indique que l'ont a deja jouer
              break;// on quitte la boucle
