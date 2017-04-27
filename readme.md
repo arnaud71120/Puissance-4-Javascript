@@ -38,7 +38,7 @@ Si l'ordinateur détecte a la deuxième ligne par exemple un emplacement qui lui
 Première utilisation :
 
 Partie contre IA : trop facile ? j'ai gagné en 4 coups CD capture 1
-L'IA est un peu prévisible
+L'IA est un peu prévisible==> Petite amélioration en défense
 Sur le board de la partie contre L'IA, manque le lien pour le menu ==> fait
 au cas où si une personne veut jouer avec moi. de même pour le joueur contre joueur.
 ==> L'ia de l'ordinateur n'est pas complet. Une fois que l'ont connais les failles, il est très facile de gagner. Avec plus de temps, il est certain qu'il peut être plus performant.
