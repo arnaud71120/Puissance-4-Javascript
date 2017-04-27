@@ -14,7 +14,7 @@ body {
 <body style="background-image: url('images/background.jpg')">
 <center>
   <div id="menu">
-  <h1 style="color:blue;">Jeu du Puissance 4</h1>
+  <h1 style="color:blue;" id ="titre"></h1>
   <button id="buttonStart1" type="button" onclick="vsJoueur()">Démarrer la partie Joueur VS Joueur</button>
   <button id="buttonStart2" type="button" onclick="vsIa()">Démarrer la partie Joueur VS IA</button>
   <h2 style="color:red;" id="victoire"></h2>
@@ -27,12 +27,15 @@ body {
 
 </body>
 </html>
+<script type="text/javascript" language="javascript" src="fichier.json">//on recupere notre json</script>
+
 <script>
 var noBtn; // variable qui me permettera de s'avoir si les bouton de démarage sont activée ou non
 var tab, tabJoueur, victoire; //initialisation des tableau et nbr de victoire
 var iA; //variable qui me permettera de s'avoir si l'iA est activé ou non
-function returnMenu(){
-  document.getElementById('menu').innerHTML = '<h1 style="color:blue;">Jeu du Puissance 4</h1><button id="buttonStart1" type="button" onclick="vsJoueur()">Démarrer la partie Joueur VS Joueur</button><button id="buttonStart2" type="button" onclick="vsIa()">Démarrer la partie Joueur VS IA</button><h2 style="color:red;" id="victoire"></h2>';
+document.getElementById('titre').innerHTML = monMenu.titre;//recuperation du titre du jeu dans le fichier json
+function returnMenu(){ //fonction qui permet de retourner au menu principal
+  document.getElementById('menu').innerHTML = '<h1 style="color:blue;">'+monMenu.titre+'</h1><button id="buttonStart1" type="button" onclick="vsJoueur()">Démarrer la partie Joueur VS Joueur</button><button id="buttonStart2" type="button" onclick="vsIa()">Démarrer la partie Joueur VS IA</button><h2 style="color:red;" id="victoire"></h2>';// on utilise le json pour afficher le titre
   document.getElementById('tableau').innerHTML = '';
 }
 function vsJoueur(){ //si on clic sur la bouton contre joueur
