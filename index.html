@@ -201,12 +201,15 @@ function iaOrdi(){ // fonction d'intelligence artificiel du jeux
          if(tabJoueur[y][i] == 1){ // On va commencer par se défendre si le joueur a deja 3 jeton d'aligner
            comptVertical=0;// premier compteur vertical
            comptVertical2=0;// deuxieme compteur vertical
+           comptVertical3=0;// deuxieme compteur vertical
            comptHorizontal=0;// premier compteur horizontal
            comptHorizontal2=0;// deuxieme compteur vertihorizontalcal
+           comptHorizontal3=0;// deuxieme compteur vertihorizontalcal
            comptFalse=0; // compteur de case a nul
            var myY2 = y-3; //variable qui permettera de recuperer une valeur 3 case en arriere sur l'horizontal
+           var myY3 = y+3; //variable qui permettera de recuperer une valeur 3 case en arriere sur l'horizontal
            var myI2 = i-3; //variable qui permettera de recuperer une valeur 3 case en arriere sur la vertical
-
+           var myI = i-2;
            for(var g=2;g >0;g--){ //boucle qui nous permet de savoir si le joueur a deux autre pions a lui au dessus du jeton que je check
              var myI = i-g;
              if(myI >=0){ // on verifie que l'ont se situe toujours dans la grille
@@ -216,15 +219,24 @@ function iaOrdi(){ // fonction d'intelligence artificiel du jeux
              }
            }
             for(var p=2; p >0; p--){//boucle qui nous permet de savoir si le joueur a deux autre pions a lui qui précedent horizontalement le jeton que je check
-              var myY = y-p;
+               myY = y-p;
               if(myY >=0){ // on verifie que l'ont se situe toujours dans la grille
                 if(tabJoueur[myY][i]== 1 ){
                   comptVertical++;
                 }
               }
             }
-           for(var p=3; p >0; p--){//boucle qui nous permet de savoir si le joueur a trois  pions a lui alligné verticalement sur un espace de 4 avec un trou entre les 3 jetons.Cela nous permettera de nous placé entre les jetons pour lui eviter d'aligner les 4 jetons
-             var myY = y-p;
+            for(var l=0; l <2; l++){//boucle qui nous permet de savoir si le joueur a deux autre pions a lui qui précedent horizontalement le jeton que je check
+               myY = y+l;
+              if(myY <=6){ // on verifie que l'ont se situe toujours dans la grille
+                if(tabJoueur[myY][i]== 1 ){
+                  comptVertical3++;
+                }
+              }
+            }
+
+           for(var k=3; k >0; k--){//boucle qui nous permet de savoir si le joueur a trois  pions a lui alligné verticalement sur un espace de 4 avec un trou entre les 3 jetons.Cela nous permettera de nous placé entre les jetons pour lui eviter d'aligner les 4 jetons
+             var myY = y-k;
              if(myY >=0){ // on verifie que l'ont se situe toujours dans la grille
                if(tabJoueur[myY][i]== 1){
                  comptVertical2++;
@@ -236,13 +248,18 @@ function iaOrdi(){ // fonction d'intelligence artificiel du jeux
                }
              }
            }
-           if(comptHorizontal2 == 2 && myI2 >= 0 && tabJoueur[y][myI2]== false ){ //ne pas se fier au nom: ici il s'agit d'une vérification vertical.si il y a bien deux jetons au dessus du jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert
-             addJetons(y);// on insert le jeton de l'ordinateur a la bonne colonne
+           if(comptHorizontal2 == 2 && myI2 >= 0 && tabJoueur[y][myI2]== false ){ //ne pas se fier au nom: ici il s'agit d'une vérification vertical.si il y a bien deux jetons au dessus du jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert             addJetons(y);// on insert le jeton de l'ordinateur a la bonne colonne
+              addJetons(y);
              jouer=1;// on indique que l'ont a deja jouer
              break; // on quitte la boucle
            }
            if(comptVertical == 2 && myY2 >=0 &&  tabJoueur[myY2][i]== false){//si il y a bien deux jetons qui précent le jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert
              addJetons(myY2); // on insert le jeton de l'ordinateur a la bonne colonne
+             jouer=1;// on indique que l'ont a deja jouer
+             break; // on quitte la boucle
+           }
+           if(comptVertical3 == 2 && myY3 <=6 &&  tabJoueur[myY3][i]== false){//si il y a bien deux jetons qui précent le jeton du joueur, que la colonne d'insertion n'est pas en dehors de la grille et que la conlonne d'insertion est bien vide. On insert
+             addJetons(myY3); // on insert le jeton de l'ordinateur a la bonne colonne
              jouer=1;// on indique que l'ont a deja jouer
              break; // on quitte la boucle
            }
@@ -252,6 +269,13 @@ function iaOrdi(){ // fonction d'intelligence artificiel du jeux
              break;// on quitte la boucle
            }
         }
+
+      }
+    }
+  }
+    for (var i = 5 ; i >= 0 ; i--){ // boucle qui nous fait parcourir les colonnes en commencant a droite
+      if(jouer == 0){ // si on a pas déjà jouer un jeton
+      for(var y = 6 ; y >= 0 ; y--){ // boucle qui nous fait parcourir les lignes en commencant par le bas
         if(tabJoueur[y][i] == false){// si il n'y a pas besoin de se défendre, on peux attaquer. Ici on test la premiere case vide que l'ont trouve
           if(y != 6){ // si on ne se situe pas sur la premiere case
             var myI = i;
@@ -313,6 +337,10 @@ function iaOrdi(){ // fonction d'intelligence artificiel du jeux
             }
             lastJoueur=tabJoueur[y][o];// on sauvegarde la valeur de la case précédente
           }
+        }
+        else if(tabJoueur[y][i] == false){
+            addJetons(y);
+            jouer = 1;
         }
           else{// sinon on sort de la boucle
             break;
