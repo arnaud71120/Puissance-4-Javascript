@@ -36,13 +36,22 @@ function vsJoueur(){ //si on clic sur la bouton contre joueur
   var nomJoueur2 = prompt('Nom du joueur 2 :',"");//on demande le nom du joueur2
   localStorage.setItem('joueur1',nomJoueur1);//on sauvegarde le nom du joueur1 dans le local storage
   localStorage.setItem('joueur2',nomJoueur2);//on sauvegarde le nom du joueur2 dans le local storage
-  initScore();//on appel la fonction d'initialisatio du score
+  initScore();//on appel la fonction d'initialisation du score
   iA = false; //ia désactivé
   startGame(); // on lance la game
 }
 function initScore(){//function qui initialise les score dans le localStorage
   localStorage.setItem('score1','0');// on initialise le score du joueur1
   localStorage.setItem('score2','0');// on initialise le score du joueur2
+}
+function renitialiseScore(){//function qui permet de renitialiser les scores sur demande
+  localStorage.removeItem('score1');// on supprime le score du joueur1
+  localStorage.removeItem('score2');// on supprime le score du joueur2
+  initScore();//on appel la fonction d'initialisation du score
+  var removeScore =  document.getElementById('score');// on selectionne la div du score
+  removeScore.parentNode.removeChild(removeScore);//on supprime le score de l'ecran
+  var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+ localStorage.getItem('joueur2') +' : '+localStorage.getItem('score2')+'</p></div>'; // on re-affiche le tableau des scores mis a 0
+
 }
 
 function ajoutScore(joueur){// fonction qui permet d'incrementer le score
@@ -55,6 +64,7 @@ function vsIa(){ // si on clic contre l'ordi
   var nomJoueur1 = prompt('Nom du joueur 1 :',"");//on demande le nom du joueur1
   localStorage.setItem('joueur1',nomJoueur1);//on sauvegarde le nom du joueur1 dans le local storage
   localStorage.setItem('joueur2','ordinateur');//on sauvegarde le nom de l'ordinateur dans le local storage
+  initScore();//on appel la fonction d'initialisation du score
   iA = true; // ia activé
   startGame(); // on lance la game
 }
@@ -90,7 +100,7 @@ function restartGame(){ // fonction qui sera lancer si le joueur appuie sur rest
    tab = tableauInit();
    tabJoueur = choixJoueurInit();
    initGrille();
-   var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+localStorage.getItem('joueur2')+' : '+localStorage.getItem('score2')+'</p></div>';
+   var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+localStorage.getItem('joueur2')+' : '+localStorage.getItem('score2')+'</p><p><button type="button" id="btnRenitScore" onclick="renitialiseScore()">Réinitialiser score</button></p></div>';
 
 }
 function initJoueur(){// fonction qui initalise le premier joueur
