@@ -18,6 +18,7 @@ body {
   <button id="buttonStart1" type="button" onclick="vsJoueur()">Démarrer la partie Joueur VS Joueur</button>
   <button id="buttonStart2" type="button" onclick="vsIa()">Démarrer la partie Joueur VS IA</button>
   <h2 style="color:red;" id="victoire"></h2>
+  <h2 style="color:red;" id="aQuiLeTour"></h2>
 </div>
 </center>
 <div id="tableau" style="left: 40%; width: 350px; position: absolute; top: 20%; height: 600px ">
@@ -35,7 +36,7 @@ var tab, tabJoueur, victoire; //initialisation des tableau et nbr de victoire
 var iA; //variable qui me permettera de s'avoir si l'iA est activé ou non
 document.getElementById('titre').innerHTML = monMenu.titre;//recuperation du titre du jeu dans le fichier json
 function returnMenu(){ //fonction qui permet de retourner au menu principal
-  document.getElementById('menu').innerHTML = '<h1 style="color:blue;">'+monMenu.titre+'</h1><button id="buttonStart1" type="button" onclick="vsJoueur()">Démarrer la partie Joueur VS Joueur</button><button id="buttonStart2" type="button" onclick="vsIa()">Démarrer la partie Joueur VS IA</button><h2 style="color:red;" id="victoire"></h2>';// on utilise le json pour afficher le titre
+  document.getElementById('menu').innerHTML = '<h1 style="color:blue;">'+monMenu.titre+'</h1><button id="buttonStart1" type="button" onclick="vsJoueur()">Démarrer la partie Joueur VS Joueur</button><button id="buttonStart2" type="button" onclick="vsIa()">Démarrer la partie Joueur VS IA</button><h2 style="color:red;" id="victoire"></h2><h2 style="color:red;" id="aQuiLeTour"></h2>';// on utilise le json pour afficher le titre
   document.getElementById('tableau').innerHTML = '';
 }
 function vsJoueur(){ //si on clic sur la bouton contre joueur
@@ -90,6 +91,8 @@ function startGame(){ // fonction qui lance la partie
  tab = tableauInit(); // on initialise un tableau qui permettera de savoir quel case sont occupé
  tabJoueur = choixJoueurInit(); // on initialise tableau qui nous permettera de savoir quel joueur a pris tel case.
  initGrille(); // on initialise l'afficahge de la grille de jeux
+
+ document.getElementById('aQuiLeTour').innerHTML = localStorage.getItem('joueur1') + ' a toi de jouer'; //indique au joueur 1 de jouer
  var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+ localStorage.getItem('joueur2') +' : '+localStorage.getItem('score2')+'</p><p><button type="button" id="btnReturnMenu" onclick="returnMenu()">Retourner au menu</button></p></div>'; // on affiche le tableau des scores
 }
 }catch (e) {
@@ -110,6 +113,7 @@ function restartGame(){ // fonction qui sera lancer si le joueur appuie sur rest
    tab = tableauInit();
    tabJoueur = choixJoueurInit();
    initGrille();
+   document.getElementById('aQuiLeTour').innerHTML = localStorage.getItem('joueur1') + ' a toi de jouer'; //indique au joueur 1 de jouer
    var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+localStorage.getItem('joueur2')+' : '+localStorage.getItem('score2')+'</p><p><button type="button" id="btnReturnMenu" onclick="returnMenu()">Retourner au menu</button></p><p><button type="button" id="btnRenitScore" onclick="renitialiseScore()">Réinitialiser score</button></p></div>';
 
 }
@@ -122,9 +126,11 @@ function changeJoueur(){ // fonction qui permet de switcher de joueur si on est 
   if(joueur == 1){ // si le joueur actuel est 1
     joueur = 2; //le joueur actuel devient 2
     jeton = "jetonrouge.gif"; // sont jeton est rouge
+    document.getElementById('aQuiLeTour').innerHTML = localStorage.getItem('joueur2') + ' a toi de jouer'; //indique au joueur 2 de jouer
   }else{  //si le joueur  actuel n'est pas le joueur 1
     joueur = 1; //le joueur actuel devient 1
     jeton = "jetonjaune.gif"; // sont jeton est jaune
+    document.getElementById('aQuiLeTour').innerHTML = localStorage.getItem('joueur1') + ' a toi de jouer'; //indique au joueur 1 de jouer
   }
 }
 function changeJoueurIa(){ // fonction qui permet de switcher de joueur si on est en mode joueur contre l'ordinateur
@@ -135,6 +141,7 @@ function changeJoueurIa(){ // fonction qui permet de switcher de joueur si on es
   }else{ //si le joueur  actuel n'est pas le joueur 1
     joueur = 1; //le joueur actuel devient 1
     jeton = "jetonjaune.gif"; // sont jeton est jaune
+    document.getElementById('aQuiLeTour').innerHTML = localStorage.getItem('joueur1') + ' a toi de jouer'; //indique au joueur 1 de jouer
   }
 }
 function tableauInit(){ // tableau qui initialise les valeurs
@@ -341,6 +348,7 @@ function addJetons(value){ // fonction permettant d'ajouter un jeton
     }
     if((victoire == 1 || nul == 1) && noBtn == 0){// si il y a une victoire ou un nul et que les boutons de restart de sont pas active
       noBtn = 1;// on increment la variable de bouton restart
+      document.getElementById('aQuiLeTour').innerHTML = ""; //on eneleve l'affchage du joueur qui joue
       var Menu = document.getElementById('menu'); // on recupere le contennu de la div menu
       Menu.innerHTML += '<button id="restartGame" type="button" onclick="restartGame()"> Recommencer une partie </button>';// on lui ajoute le bouton de restart
     }
@@ -371,6 +379,7 @@ function testVainqueur(){ // fonction qui permettera de tester si il y a victoir
               victoire = 1;// on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
               var joueur = 'joueur'+tabJoueur[y][i];
               vainqueurOk = 1;
+              document.getElementById('aQuiLeTour').innerHTML = ""; //on eneleve l'affchage du joueur qui joue
               document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ;// on affiche a l'ecan le nom du vainqueur
               ajoutScore(tabJoueur[y][i]);//fonction qui va inscrémenter le score au joueur
             }
@@ -404,6 +413,7 @@ if (vainqueurOk == 0){// on test si un vainqueur a deja le score d'incrementer. 
             victoire = 1; // on increment la victoire a 1. cela evite de continuer la partie alors qu'elle est terminé
             var joueur = 'joueur'+tabJoueur[i][y];
             vainqueurOk = 1;
+            document.getElementById('aQuiLeTour').innerHTML = ""; //on eneleve l'affchage du joueur qui joue
             document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ; // on affiche a l'ecan le nom du vainqueur
             ajoutScore(tabJoueur[i][y]);//fonction qui va inscrémenter le score au joueur
           }
@@ -455,6 +465,7 @@ if (vainqueurOk == 0){// on test si un vainqueur a deja le score d'incrementer. 
             var joueur = 'joueur'+tabJoueur[y][i];
             vainqueurOk = 1;
             ajoutScore(tabJoueur[y][i]);//fonction qui va inscrémenter le score au joueur
+            document.getElementById('aQuiLeTour').innerHTML = ""; //on eneleve l'affchage du joueur qui joue
             document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ; // on affiche a l'ecan le nom du vainqueur
             }
           varI--;// On se decale vers le haut
@@ -493,6 +504,7 @@ for (var i = 5 ; i >= 0 ; i--){// test victoire sur ligne diagonale droite
             victoire = 1;// si le vainqueur est  le joueur 1
             var joueur = 'joueur'+tabJoueur[y][i];
             vainqueurOk = 1;
+            document.getElementById('aQuiLeTour').innerHTML = ""; //on eneleve l'affchage du joueur qui joue
             document.getElementById('victoire').innerHTML = 'Victoire de '+localStorage.getItem(joueur) ;// on affiche a l'ecan le nom du vainqueur
             ajoutScore(tabJoueur[y][i]);//fonction qui va inscrémenter le score au joueur
             }

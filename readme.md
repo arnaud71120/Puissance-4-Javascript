@@ -45,7 +45,7 @@ au cas où si une personne veut jouer avec moi. de même pour le joueur contre j
 
 Partie joueur contre joueur :
 
-Il serait plus agréable de savoir a qui est le tour.
+Il serait plus agréable de savoir a qui est le tour.==> fait
 
 Pour les noms des joueurs : Il serait bien de proposer une liste de joueur ayant déjà joué a l'application. C'est un peu chiant de retaper son nom à chaque fois. Mais en soi c'est pas très gênant si on veut faire une petite partie.==> Si on recommence plusieurs partie sans rafraichir le navigateur, le nom des joueurs est sauvegarder et il n'est pas nécessaire de retaper son nom.
 
