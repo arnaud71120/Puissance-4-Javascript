@@ -1,12 +1,12 @@
-*** Jeux du Puissance ***
+# Jeux du Puissance 4
 *******************
 
-#Arnaud VILAS BOAS
-##DEV8
+## Arnaud VILAS BOAS
+### DEV8
 
 *******************
 
-Règle du puissance 4 :
+### Règle du puissance 4 :
 
 Aligner 4 jetons a la suite(vertical, horizontalement, en diagonale) avant l'adversaire.
 Jeux tour a tour.
