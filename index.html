@@ -31,6 +31,10 @@ body {
 var noBtn; // variable qui me permettera de s'avoir si les bouton de démarage sont activée ou non
 var tab, tabJoueur, victoire; //initialisation des tableau et nbr de victoire
 var iA; //variable qui me permettera de s'avoir si l'iA est activé ou non
+function returnMenu(){
+  document.getElementById('menu').innerHTML = '<h1 style="color:blue;">Jeu du Puissance 4</h1><button id="buttonStart1" type="button" onclick="vsJoueur()">Démarrer la partie Joueur VS Joueur</button><button id="buttonStart2" type="button" onclick="vsIa()">Démarrer la partie Joueur VS IA</button><h2 style="color:red;" id="victoire"></h2>';
+  document.getElementById('tableau').innerHTML = '';
+}
 function vsJoueur(){ //si on clic sur la bouton contre joueur
   var nomJoueur1 = prompt('Nom du joueur 1 :',"");//on demande le nom du joueur1
   var nomJoueur2 = prompt('Nom du joueur 2 :',"");//on demande le nom du joueur2
@@ -50,7 +54,7 @@ function renitialiseScore(){//function qui permet de renitialiser les scores sur
   initScore();//on appel la fonction d'initialisation du score
   var removeScore =  document.getElementById('score');// on selectionne la div du score
   removeScore.parentNode.removeChild(removeScore);//on supprime le score de l'ecran
-  var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+ localStorage.getItem('joueur2') +' : '+localStorage.getItem('score2')+'</p></div>'; // on re-affiche le tableau des scores mis a 0
+  var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+ localStorage.getItem('joueur2') +' : '+localStorage.getItem('score2')+'</p><p><button type="button" id="btnReturnMenu" onclick="returnMenu()">Retourner au menu</button></p></div>'; // on re-affiche le tableau des scores mis a 0
 
 }
 
@@ -82,7 +86,7 @@ function startGame(){ // fonction qui lance la partie
  tab = tableauInit(); // on initialise un tableau qui permettera de savoir quel case sont occupé
  tabJoueur = choixJoueurInit(); // on initialise tableau qui nous permettera de savoir quel joueur a pris tel case.
  initGrille(); // on initialise l'afficahge de la grille de jeux
- var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+ localStorage.getItem('joueur2') +' : '+localStorage.getItem('score2')+'</p></div>'; // on affiche le tableau des scores
+ var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+ localStorage.getItem('joueur2') +' : '+localStorage.getItem('score2')+'</p><p><button type="button" id="btnReturnMenu" onclick="returnMenu()">Retourner au menu</button></p></div>'; // on affiche le tableau des scores
 
 }
 
@@ -100,7 +104,7 @@ function restartGame(){ // fonction qui sera lancer si le joueur appuie sur rest
    tab = tableauInit();
    tabJoueur = choixJoueurInit();
    initGrille();
-   var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+localStorage.getItem('joueur2')+' : '+localStorage.getItem('score2')+'</p><p><button type="button" id="btnRenitScore" onclick="renitialiseScore()">Réinitialiser score</button></p></div>';
+   var score = document.getElementById('tableau').innerHTML += '<div id="score"><p style="color:red;">'+localStorage.getItem('joueur1')+' : '+localStorage.getItem('score1')+'</p><p style="color:blue;">'+localStorage.getItem('joueur2')+' : '+localStorage.getItem('score2')+'</p><p><button type="button" id="btnReturnMenu" onclick="returnMenu()">Retourner au menu</button></p><p><button type="button" id="btnRenitScore" onclick="renitialiseScore()">Réinitialiser score</button></p></div>';
 
 }
 function initJoueur(){// fonction qui initalise le premier joueur

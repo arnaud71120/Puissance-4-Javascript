@@ -39,22 +39,23 @@ Première utilisation :
 
 Partie contre IA : trop facile ? j'ai gagné en 4 coups CD capture 1
 L'IA est un peu prévisible
-Sur le board de la partie contre L'IA, manque le lien pour le menu
+Sur le board de la partie contre L'IA, manque le lien pour le menu ==> fait
 au cas où si une personne veut jouer avec moi. de même pour le joueur contre joueur.
-
+==> L'ia de l'ordinateur n'est pas complet. Une fois que l'ont connais les failles, il est très facile de gagner. Avec plus de temps, il est certain qu'il peut être plus performant.
 
 Partie joueur contre joueur :
 
 Il serait plus agréable de savoir a qui est le tour.
 
-Pour les noms des joueurs : Il serait bien de proposer une liste de joueur ayant déjà joué a l'application. C'est un peu chiant de retaper son nom à chaque fois. Mais en soi c'est pas très gênant si on veut faire une petite partie.
+Pour les noms des joueurs : Il serait bien de proposer une liste de joueur ayant déjà joué a l'application. C'est un peu chiant de retaper son nom à chaque fois. Mais en soi c'est pas très gênant si on veut faire une petite partie.==> Si on recommence plusieurs partie sans rafraichir le navigateur, le nom des joueurs est sauvegarder et il n'est pas nécessaire de retaper son nom.
+
 
 
 Expérience utilisateur :
 
-Design classique.
-  Un titre parlant mais qui manque de classe.
-Utilisation des alert JS un peu abusif.
+Design classique. ==> Je ne voulais pas perdre une journée sur du design(pas ma qualité première en plus). Il y a largement ce qu'il faut pour que le jeux soit intuitif et un "minimum beau".
+  Un titre parlant mais qui manque de classe. ==> J'ai peur quand changeant le titre, le joueur ne sais pas a quoi il joue!
+Utilisation des alert JS un peu abusif. ==> A part pour demander le nom des joueur il n'y a aucune alert.
 
 Commentaire dev :
 Fichier bien commenté
@@ -62,7 +63,6 @@ fichier tout en un !
 les noms des joueur sont sauvegarder dans des localStorages, on pourrait en faire une utilisation plus conséquentes.
 Code agréable a lire.
 
-Code ligne 420 et 459 : if repeté deux fois ? possibilité de faire une fonction avec un paramètre différent
 
 Conclusion :
 
